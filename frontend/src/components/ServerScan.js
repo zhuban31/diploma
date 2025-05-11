@@ -16,6 +16,7 @@ const ServerScan = () => {
   const [sshKey, setSshKey] = useState('');
   const [connectionType, setConnectionType] = useState('ssh');
   const [usePassword, setUsePassword] = useState(true);
+  const [useSudo, setUseSudo] = useState(false); // Добавлен флаг для использования sudo
   const [criteria, setCriteria] = useState([]);
   const [criteriaCategories, setCriteriaCategories] = useState([]);
   const [selectedCriteria, setSelectedCriteria] = useState({});
@@ -104,7 +105,8 @@ const ServerScan = () => {
         password: usePassword ? password : null,
         ssh_key: !usePassword ? sshKey : null,
         connection_type: connectionType,
-        criteria_ids: selectedCriteriaIds
+        criteria_ids: selectedCriteriaIds,
+        use_sudo: useSudo // Передаем флаг использования sudo
       });
       
       setSuccess('Scan completed successfully!');
@@ -270,6 +272,19 @@ const ServerScan = () => {
                   disabled={loading}
                 />
               )}
+              
+              {/* Добавлен чекбокс для использования sudo */}
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={useSudo}
+                    onChange={(e) => setUseSudo(e.target.checked)}
+                    disabled={loading}
+                  />
+                }
+                label="Use sudo for commands (requires sudo privileges)"
+                sx={{ mb: 2 }}
+              />
               
               <Button
                 variant="contained"

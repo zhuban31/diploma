@@ -7,9 +7,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=serveraudit
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: serveraudit
     ports:
       - "5432:5432"
     restart: unless-stopped
@@ -27,8 +27,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db/serveraudit
-      - SECRET_KEY=your_secret_key_change_in_production
+      DATABASE_URL: postgresql://postgres:postgres@db/serveraudit
+      SECRET_KEY: your_secret_key_change_in_production
     depends_on:
       db:
         condition: service_healthy
@@ -38,13 +38,8 @@ services:
   # Фронтенд (React)
   frontend:
     build: ./frontend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000
     depends_on:
       - backend
     restart: unless-stopped

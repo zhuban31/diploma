@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # База данных PostgreSQL
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=serveraudit
+    ports:
+      - "5432:5432"
+
+  # Бэкенд API (FastAPI)
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db/serveraudit
+    depends_on:
+      - db
+
+  # Фронтенд (React в режиме разработки)
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    command: npm start
+
+volumes:
+  postgres_data:

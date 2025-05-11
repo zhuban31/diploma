@@ -1,0 +1,13 @@
+2025-05-11 18:19:23,741 - update-commands - INFO - Обновлен критерий 110: dpkg -l | grep unattended-upgrades
+2025-05-11 18:19:23,742 - update-commands - INFO - Обновлен критерий 210: findmnt -n /tmp
+2025-05-11 18:19:23,743 - update-commands - INFO - Обновлен критерий 310: grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:19:23,743 - update-commands - INFO - Обновлен критерий 409: grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:19:23,744 - update-commands - INFO - Обновлен критерий 509: sysctl net.ipv4.ip_forward
+2025-05-11 18:19:23,744 - update-commands - INFO - Обновлен критерий 610: rfkill list
+2025-05-11 18:19:23,745 - update-commands - INFO - Обновлен критерий 710: systemctl is-active auditd
+2025-05-11 18:19:23,745 - update-commands - INFO - Обновлен критерий 810: grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:19:23,746 - update-commands - INFO - Обновлен критерий 910: grep Banner /etc/ssh/sshd_config
+2025-05-11 18:19:23,747 - update-commands - INFO - Обновлен критерий 1010: stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:19:23,747 - update-commands - INFO - Обновлен критерий 1110: echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:19:23,748 - update-commands - INFO - Обновлен критерий 1210: find /home -name .forward
+2025-05-11 18:19:23,753 - update-commands - INFO - Команды проверок успешно обновлены

@@ -3,3 +3,1499 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
     version = _bcrypt.__about__.__version__
 AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 17:37:25,601 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 17:38:26,800 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 17:38:26,825 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 17:38:30,173 - paramiko.transport - INFO - Authentication (password) failed.
+2025-05-11 17:38:30,173 - server-audit - ERROR - Ошибка при сканировании: Authentication failed.
+2025-05-11 17:38:30,206 - server-audit - ERROR - Ошибка при сканировании сервера 25.15.212.99: Authentication failed.
+2025-05-11 17:39:49,721 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 17:39:49,740 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 17:39:49,812 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 17:54:54,722 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 17:55:53,202 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 17:55:53,226 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 17:55:55,449 - paramiko.transport - INFO - Authentication (password) failed.
+2025-05-11 17:55:55,449 - server-audit - ERROR - Ошибка при сканировании: Authentication failed.
+2025-05-11 17:55:55,501 - server-audit - ERROR - Ошибка при сканировании сервера 25.15.212.99: Authentication failed.
+2025-05-11 17:56:20,969 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 17:56:20,995 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 17:56:21,094 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:01:49,869 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 18:02:00,322 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:02:00,408 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:02:00,408 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:02:00,414 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:02:00,514 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:02:00,515 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:02:00,515 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:02:00,856 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:02:00,856 - server-audit - INFO - STDOUT: ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+
+2025-05-11 18:02:00,856 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:02:00,856 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:02:00,856 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:02:00,912 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:02:00,912 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:00,912 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:02:00,912 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:02:00,912 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:02:00,962 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:02:00,963 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:00,963 - server-audit - INFO - STDERR: grep: /boot/grub/grub.cfg: Permission denied
+
+2025-05-11 18:02:00,963 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:02:00,963 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:02:00,963 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:02:01,013 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:02:01,013 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:01,013 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:02:01,013 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:02:01,014 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:02:01,064 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:02:01,064 - server-audit - INFO - STDOUT: net.ipv4.ip_forward = 1
+
+2025-05-11 18:02:01,065 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:02:01,065 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:02:01,065 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:02:01,111 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:02:01,111 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:01,111 - server-audit - INFO - STDERR: sh: 1: rfkill: not found
+
+2025-05-11 18:02:01,111 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:02:01,111 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:02:01,111 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:02:01,164 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:02:01,164 - server-audit - INFO - STDOUT: inactive
+
+2025-05-11 18:02:01,164 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:02:01,164 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:02:01,165 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:02:01,212 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:02:01,212 - server-audit - INFO - STDOUT: #	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+
+2025-05-11 18:02:01,212 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:02:01,212 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:02:01,212 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:02:01,260 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:02:01,260 - server-audit - INFO - STDOUT: #Banner none
+
+2025-05-11 18:02:01,260 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:02:01,260 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:02:01,260 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:02:01,309 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:02:01,309 - server-audit - INFO - STDOUT: 644 0 0
+
+2025-05-11 18:02:01,310 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:02:01,310 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:02:01,311 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/zeek/bin | grep -q "::"; echo 0
+2025-05-11 18:02:01,361 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:02:01,361 - server-audit - INFO - STDOUT: 0
+
+2025-05-11 18:02:01,362 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:02:01,362 - server-audit - INFO - Критерий 1110 НЕ ПРОЙДЕН
+2025-05-11 18:02:01,362 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:02:01,672 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:02:01,672 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:01,672 - server-audit - INFO - STDERR: find: ‘/home/aidar’: Permission denied
+
+2025-05-11 18:02:01,672 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:02:01,673 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:02:01,673 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:02:58,363 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:02:58,379 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем aidar
+2025-05-11 18:02:58,379 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:02:58,385 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:02:58,442 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:02:58,443 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:02:58,443 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:02:58,694 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:02:58,694 - server-audit - INFO - STDOUT: ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+
+2025-05-11 18:02:58,694 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:02:58,694 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:02:58,694 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:02:58,745 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:02:58,745 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:58,745 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:02:58,745 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:02:58,745 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:02:58,796 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:02:58,796 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:58,796 - server-audit - INFO - STDERR: grep: /boot/grub/grub.cfg: Permission denied
+
+2025-05-11 18:02:58,796 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:02:58,796 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:02:58,797 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:02:58,844 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:02:58,845 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:58,845 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:02:58,845 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:02:58,846 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:02:58,895 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:02:58,895 - server-audit - INFO - STDOUT: net.ipv4.ip_forward = 1
+
+2025-05-11 18:02:58,895 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:02:58,895 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:02:58,895 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:02:58,942 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:02:58,943 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:58,943 - server-audit - INFO - STDERR: bash: line 1: rfkill: command not found
+
+2025-05-11 18:02:58,943 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:02:58,943 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:02:58,943 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:02:58,997 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:02:58,997 - server-audit - INFO - STDOUT: inactive
+
+2025-05-11 18:02:58,997 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:02:58,997 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:02:58,997 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:02:59,045 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:02:59,045 - server-audit - INFO - STDOUT: #	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+
+2025-05-11 18:02:59,045 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:02:59,045 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:02:59,045 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:02:59,095 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:02:59,095 - server-audit - INFO - STDOUT: #Banner none
+
+2025-05-11 18:02:59,095 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:02:59,095 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:02:59,096 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:02:59,145 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:02:59,145 - server-audit - INFO - STDOUT: 644 0 0
+
+2025-05-11 18:02:59,145 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:02:59,145 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:02:59,145 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/zeek/bin | grep -q "::"; echo 0
+2025-05-11 18:02:59,196 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:02:59,196 - server-audit - INFO - STDOUT: 0
+
+2025-05-11 18:02:59,196 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:02:59,196 - server-audit - INFO - Критерий 1110 НЕ ПРОЙДЕН
+2025-05-11 18:02:59,196 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:02:59,828 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:02:59,828 - server-audit - INFO - STDOUT: 
+2025-05-11 18:02:59,828 - server-audit - INFO - STDERR: find: ‘/home/ayan’: Permission denied
+
+2025-05-11 18:02:59,828 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:02:59,828 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:02:59,828 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:09:14,745 - server-audit - INFO - Начало сканирования сервера 25.13.178.117
+2025-05-11 18:09:14,766 - server-audit - INFO - Подключение к серверу 25.13.178.117 по WinRM пока не реализовано
+2025-05-11 18:18:49,194 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:18:49,197 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 18:18:49,417 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:19:06,123 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:19:06,139 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:19:06,139 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:19:06,145 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:19:06,292 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:19:06,292 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:19:06,292 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:19:06,631 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:19:06,632 - server-audit - INFO - STDOUT: ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+
+2025-05-11 18:19:06,632 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:19:06,632 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:19:06,632 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:19:06,683 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:19:06,683 - server-audit - INFO - STDOUT: 
+2025-05-11 18:19:06,683 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:19:06,683 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:19:06,683 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:19:06,732 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:19:06,733 - server-audit - INFO - STDOUT: 
+2025-05-11 18:19:06,733 - server-audit - INFO - STDERR: grep: /boot/grub/grub.cfg: Permission denied
+
+2025-05-11 18:19:06,733 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:19:06,733 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:19:06,733 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:19:06,781 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:19:06,781 - server-audit - INFO - STDOUT: 
+2025-05-11 18:19:06,782 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:19:06,782 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:19:06,782 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:19:06,832 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:19:06,832 - server-audit - INFO - STDOUT: net.ipv4.ip_forward = 1
+
+2025-05-11 18:19:06,832 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:19:06,833 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:19:06,833 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:19:06,882 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:19:06,882 - server-audit - INFO - STDOUT: 
+2025-05-11 18:19:06,882 - server-audit - INFO - STDERR: sh: 1: rfkill: not found
+
+2025-05-11 18:19:06,882 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:19:06,882 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:19:06,882 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:19:06,936 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:19:06,936 - server-audit - INFO - STDOUT: inactive
+
+2025-05-11 18:19:06,936 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:19:06,936 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:19:06,936 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:19:06,986 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:19:06,987 - server-audit - INFO - STDOUT: #	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+
+2025-05-11 18:19:06,988 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:19:06,988 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:19:06,988 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:19:07,036 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:19:07,036 - server-audit - INFO - STDOUT: #Banner none
+
+2025-05-11 18:19:07,036 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:19:07,037 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:19:07,037 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:19:07,085 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:19:07,085 - server-audit - INFO - STDOUT: 644 0 0
+
+2025-05-11 18:19:07,085 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:19:07,085 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:19:07,085 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/opt/zeek/bin | grep -q "::"; echo 0
+2025-05-11 18:19:07,133 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:19:07,133 - server-audit - INFO - STDOUT: 0
+
+2025-05-11 18:19:07,134 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:19:07,134 - server-audit - INFO - Критерий 1110 НЕ ПРОЙДЕН
+2025-05-11 18:19:07,134 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:19:07,202 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:19:07,202 - server-audit - INFO - STDOUT: 
+2025-05-11 18:19:07,202 - server-audit - INFO - STDERR: find: ‘/home/aidar’: Permission denied
+
+2025-05-11 18:19:07,202 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:19:07,202 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:19:07,202 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:20:20,235 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:20:20,438 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:20:33,472 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:20:33,493 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем aidar
+2025-05-11 18:20:33,493 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:20:33,499 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:20:33,551 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:20:33,551 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:20:33,551 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:20:33,987 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:20:33,988 - server-audit - INFO - STDOUT: ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+
+2025-05-11 18:20:33,988 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:20:33,988 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:20:33,988 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:20:34,038 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:20:34,038 - server-audit - INFO - STDOUT: 
+2025-05-11 18:20:34,038 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:20:34,039 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:20:34,039 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:20:34,087 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:20:34,087 - server-audit - INFO - STDOUT: 
+2025-05-11 18:20:34,088 - server-audit - INFO - STDERR: grep: /boot/grub/grub.cfg: Permission denied
+
+2025-05-11 18:20:34,088 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:20:34,088 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:20:34,088 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:20:34,139 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:20:34,139 - server-audit - INFO - STDOUT: 
+2025-05-11 18:20:34,139 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:20:34,139 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:20:34,139 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:20:34,189 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:20:34,189 - server-audit - INFO - STDOUT: net.ipv4.ip_forward = 1
+
+2025-05-11 18:20:34,189 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:20:34,189 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:20:34,189 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:20:34,236 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:20:34,236 - server-audit - INFO - STDOUT: 
+2025-05-11 18:20:34,237 - server-audit - INFO - STDERR: bash: line 1: rfkill: command not found
+
+2025-05-11 18:20:34,237 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:20:34,237 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:20:34,237 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:20:34,287 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:20:34,288 - server-audit - INFO - STDOUT: inactive
+
+2025-05-11 18:20:34,288 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:20:34,288 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:20:34,288 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:20:34,338 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:20:34,338 - server-audit - INFO - STDOUT: #	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+
+2025-05-11 18:20:34,339 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:20:34,339 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:20:34,339 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:20:34,388 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:20:34,388 - server-audit - INFO - STDOUT: #Banner none
+
+2025-05-11 18:20:34,389 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:20:34,389 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:20:34,389 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:20:34,436 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:20:34,436 - server-audit - INFO - STDOUT: 644 0 0
+
+2025-05-11 18:20:34,436 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:20:34,436 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:20:34,436 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:20:34,487 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:20:34,487 - server-audit - INFO - STDOUT: 1
+
+2025-05-11 18:20:34,487 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:20:34,487 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:20:34,487 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:20:34,582 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:20:34,582 - server-audit - INFO - STDOUT: 
+2025-05-11 18:20:34,582 - server-audit - INFO - STDERR: find: ‘/home/ayan’: Permission denied
+
+2025-05-11 18:20:34,582 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:20:34,583 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:20:34,583 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:24:00,062 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:24:00,081 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:24:00,081 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:24:00,087 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:24:00,186 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:24:00,186 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:24:00,186 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:24:00,508 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:24:00,508 - server-audit - INFO - STDOUT: ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+
+2025-05-11 18:24:00,508 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:24:00,508 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:24:00,508 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:24:00,557 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:24:00,557 - server-audit - INFO - STDOUT: 
+2025-05-11 18:24:00,558 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:24:00,558 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:24:00,558 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:24:00,606 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:24:00,606 - server-audit - INFO - STDOUT: 
+2025-05-11 18:24:00,606 - server-audit - INFO - STDERR: grep: /boot/grub/grub.cfg: Permission denied
+
+2025-05-11 18:24:00,606 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:24:00,606 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:24:00,606 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:24:00,656 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:24:00,656 - server-audit - INFO - STDOUT: 
+2025-05-11 18:24:00,656 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:24:00,656 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:24:00,656 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:24:00,705 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:24:00,705 - server-audit - INFO - STDOUT: net.ipv4.ip_forward = 1
+
+2025-05-11 18:24:00,705 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:24:00,706 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:24:00,706 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:24:00,754 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:24:00,754 - server-audit - INFO - STDOUT: 
+2025-05-11 18:24:00,755 - server-audit - INFO - STDERR: sh: 1: rfkill: not found
+
+2025-05-11 18:24:00,755 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:24:00,755 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:24:00,755 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:24:00,808 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:24:00,809 - server-audit - INFO - STDOUT: inactive
+
+2025-05-11 18:24:00,809 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:24:00,809 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:24:00,809 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:24:00,857 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:24:00,857 - server-audit - INFO - STDOUT: #	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+
+2025-05-11 18:24:00,857 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:24:00,857 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:24:00,857 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:24:00,906 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:24:00,906 - server-audit - INFO - STDOUT: #Banner none
+
+2025-05-11 18:24:00,906 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:24:00,906 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:24:00,906 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:24:00,955 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:24:00,955 - server-audit - INFO - STDOUT: 644 0 0
+
+2025-05-11 18:24:00,955 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:24:00,955 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:24:00,956 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:24:01,005 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:24:01,005 - server-audit - INFO - STDOUT: 1
+
+2025-05-11 18:24:01,005 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:24:01,005 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:24:01,005 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:24:01,072 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:24:01,073 - server-audit - INFO - STDOUT: 
+2025-05-11 18:24:01,073 - server-audit - INFO - STDERR: find: ‘/home/aidar’: Permission denied
+
+2025-05-11 18:24:01,073 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:24:01,073 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:24:01,073 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:27:14,413 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:27:14,617 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:31:13,633 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:31:13,839 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:31:32,332 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:31:32,381 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:31:32,381 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:31:32,386 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:31:32,525 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:31:32,525 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:31:32,525 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): sudo dpkg -l | grep unattended-upgrades
+2025-05-11 18:31:32,872 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:31:32,872 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:32,872 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:32,872 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:31:32,872 - server-audit - INFO - Критерий 110 НЕ ПРОЙДЕН
+2025-05-11 18:31:32,872 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): sudo findmnt -n /tmp
+2025-05-11 18:31:32,936 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:31:32,936 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:32,938 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:32,938 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:31:32,938 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:31:32,938 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): sudo grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:31:32,989 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:31:32,989 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:32,989 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:32,989 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:31:32,989 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:31:32,989 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): sudo grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:31:33,037 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:31:33,037 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:33,037 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,037 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:31:33,037 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:31:33,037 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sudo sysctl net.ipv4.ip_forward
+2025-05-11 18:31:33,087 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:31:33,088 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:33,088 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,088 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:31:33,088 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:31:33,088 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): sudo rfkill list
+2025-05-11 18:31:33,144 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:31:33,144 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:33,144 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,144 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:31:33,144 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:31:33,144 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): sudo systemctl is-active auditd
+2025-05-11 18:31:33,195 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:31:33,196 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:33,196 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,196 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:31:33,196 - server-audit - INFO - Критерий 710 НЕ ПРОЙДЕН
+2025-05-11 18:31:33,196 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): sudo grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:31:33,249 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:31:33,250 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:33,250 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,250 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:31:33,250 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:31:33,250 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): sudo grep Banner /etc/ssh/sshd_config
+2025-05-11 18:31:33,304 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:31:33,305 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:33,305 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,305 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:31:33,305 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:31:33,305 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): sudo stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:31:33,362 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:31:33,362 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:33,362 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,362 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:31:33,362 - server-audit - INFO - Критерий 1010 НЕ ПРОЙДЕН
+2025-05-11 18:31:33,362 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): sudo echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:31:33,419 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:31:33,419 - server-audit - INFO - STDOUT: 1
+
+2025-05-11 18:31:33,419 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,419 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:31:33,419 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:31:33,419 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): sudo find /home -name .forward
+2025-05-11 18:31:33,474 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:31:33,474 - server-audit - INFO - STDOUT: 
+2025-05-11 18:31:33,474 - server-audit - INFO - STDERR: sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper
+sudo: a password is required
+
+2025-05-11 18:31:33,474 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:31:33,474 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:31:33,474 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:34:08,314 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:34:08,318 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 18:34:08,543 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:34:18,403 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:34:18,415 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:34:18,415 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:34:18,421 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:34:18,521 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:34:18,521 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:34:18,521 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): sudo -n dpkg -l | grep unattended-upgrades
+2025-05-11 18:34:18,846 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:34:18,846 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:18,846 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:18,846 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:34:18,846 - server-audit - INFO - Критерий 110 НЕ ПРОЙДЕН
+2025-05-11 18:34:18,847 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): sudo -n findmnt -n /tmp
+2025-05-11 18:34:18,895 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:34:18,895 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:18,896 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:18,896 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:34:18,896 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:34:18,896 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): sudo -n grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:34:18,953 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:34:18,953 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:18,953 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:18,953 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:34:18,953 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:34:18,953 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): sudo -n grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:34:19,008 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:34:19,008 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:19,008 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,008 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:34:19,008 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:34:19,008 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sudo -n sysctl net.ipv4.ip_forward
+2025-05-11 18:34:19,063 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:34:19,063 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:19,063 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,063 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:34:19,063 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:34:19,063 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): sudo -n rfkill list
+2025-05-11 18:34:19,119 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:34:19,119 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:19,119 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,119 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:34:19,119 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:34:19,119 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): sudo -n systemctl is-active auditd
+2025-05-11 18:34:19,176 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:34:19,176 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:19,176 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,176 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:34:19,177 - server-audit - INFO - Критерий 710 НЕ ПРОЙДЕН
+2025-05-11 18:34:19,177 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): sudo -n grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:34:19,233 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:34:19,233 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:19,233 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,233 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:34:19,233 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:34:19,233 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): sudo -n grep Banner /etc/ssh/sshd_config
+2025-05-11 18:34:19,288 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:34:19,289 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:19,289 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,289 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:34:19,289 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:34:19,289 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): sudo -n stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:34:19,345 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:34:19,346 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:19,346 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,346 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:34:19,346 - server-audit - INFO - Критерий 1010 НЕ ПРОЙДЕН
+2025-05-11 18:34:19,346 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): sudo -n echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:34:19,404 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:34:19,404 - server-audit - INFO - STDOUT: 1
+
+2025-05-11 18:34:19,404 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,405 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:34:19,405 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:34:19,405 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): sudo -n find /home -name .forward
+2025-05-11 18:34:19,460 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:34:19,461 - server-audit - INFO - STDOUT: 
+2025-05-11 18:34:19,461 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:34:19,462 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:34:19,462 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:34:19,462 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:34:46,190 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:34:46,398 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:34:54,293 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:34:54,314 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем root
+2025-05-11 18:34:54,314 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:34:54,320 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:34:58,722 - paramiko.transport - INFO - Authentication (password) failed.
+2025-05-11 18:34:58,723 - server-audit - ERROR - Ошибка при сканировании: Authentication failed.
+2025-05-11 18:34:58,737 - server-audit - ERROR - Ошибка при сканировании сервера 25.15.212.99: Authentication failed.
+2025-05-11 18:38:26,130 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:38:26,134 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 18:38:26,352 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:38:36,114 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:38:36,178 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:38:36,178 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:38:36,184 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:38:36,284 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:38:36,285 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:38:36,285 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): echo kali | sudo -S dpkg -l | grep unattended-upgrades
+2025-05-11 18:38:36,650 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:38:36,650 - server-audit - INFO - STDOUT: ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+
+2025-05-11 18:38:36,650 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:36,650 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:38:36,650 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:38:36,650 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): echo kali | sudo -S findmnt -n /tmp
+2025-05-11 18:38:36,731 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:38:36,731 - server-audit - INFO - STDOUT: 
+2025-05-11 18:38:36,731 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:36,731 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:38:36,732 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:38:36,732 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): echo kali | sudo -S grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:38:36,815 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:38:36,815 - server-audit - INFO - STDOUT: 
+2025-05-11 18:38:36,815 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:36,815 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:38:36,815 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:38:36,816 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): echo kali | sudo -S grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:38:36,898 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:38:36,898 - server-audit - INFO - STDOUT: 
+2025-05-11 18:38:36,898 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:36,898 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:38:36,898 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:38:36,898 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): echo kali | sudo -S sysctl net.ipv4.ip_forward
+2025-05-11 18:38:36,980 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:38:36,980 - server-audit - INFO - STDOUT: net.ipv4.ip_forward = 1
+
+2025-05-11 18:38:36,980 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:36,980 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:38:36,980 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:38:36,980 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): echo kali | sudo -S rfkill list
+2025-05-11 18:38:37,060 - server-audit - ERROR - Ошибка sudo для критерия 610: [sudo] password for ayan: sudo: rfkill: command not found
+
+2025-05-11 18:38:37,060 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): echo kali | sudo -S systemctl is-active auditd
+2025-05-11 18:38:37,141 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:38:37,141 - server-audit - INFO - STDOUT: inactive
+
+2025-05-11 18:38:37,141 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:37,141 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:38:37,141 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:38:37,141 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): echo kali | sudo -S grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:38:37,221 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:38:37,221 - server-audit - INFO - STDOUT: #	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+
+2025-05-11 18:38:37,221 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:37,221 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:38:37,221 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:38:37,221 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): echo kali | sudo -S grep Banner /etc/ssh/sshd_config
+2025-05-11 18:38:37,300 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:38:37,300 - server-audit - INFO - STDOUT: #Banner none
+
+2025-05-11 18:38:37,300 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:37,300 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:38:37,300 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:38:37,300 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): echo kali | sudo -S stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:38:37,380 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:38:37,380 - server-audit - INFO - STDOUT: 644 0 0
+
+2025-05-11 18:38:37,380 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:37,381 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:38:37,381 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:38:37,381 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo kali | sudo -S echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:38:37,464 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:38:37,464 - server-audit - INFO - STDOUT: 1
+
+2025-05-11 18:38:37,464 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:37,464 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:38:37,464 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:38:37,464 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): echo kali | sudo -S find /home -name .forward
+2025-05-11 18:38:37,797 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:38:37,797 - server-audit - INFO - STDOUT: 
+2025-05-11 18:38:37,797 - server-audit - INFO - STDERR: [sudo] password for ayan: 
+2025-05-11 18:38:37,797 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:38:37,797 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:38:37,797 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:40:42,226 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:40:42,229 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 18:40:42,448 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:40:51,039 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:40:51,118 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:40:51,118 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:40:51,124 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:40:51,223 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:40:51,223 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:40:51,223 - server-audit - INFO - Проверка работоспособности sudo...
+2025-05-11 18:40:51,540 - server-audit - INFO - Тест без sudo: test_sudo_access
+
+2025-05-11 18:40:51,595 - server-audit - INFO - Тест с sudo -n: , ошибки: sudo: a password is required
+
+2025-05-11 18:40:51,596 - server-audit - INFO - Sudo -n не работает, пробуем настроить временный sudo доступ
+2025-05-11 18:40:51,674 - server-audit - INFO - Настройка временного sudo: [sudo] password for ayan: 
+2025-05-11 18:40:51,674 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): sudo -n dpkg -l | grep unattended-upgrades
+2025-05-11 18:40:51,742 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:40:51,742 - server-audit - INFO - STDOUT: ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+
+2025-05-11 18:40:51,742 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:40:51,742 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:40:51,742 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): sudo -n findmnt -n /tmp
+2025-05-11 18:40:51,801 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:40:51,801 - server-audit - INFO - STDOUT: 
+2025-05-11 18:40:51,801 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:40:51,801 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:40:51,802 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): sudo -n grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:40:51,856 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:40:51,857 - server-audit - INFO - STDOUT: 
+2025-05-11 18:40:51,857 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:40:51,857 - server-audit - INFO - Критерий 310 НЕ ПРОЙДЕН
+2025-05-11 18:40:51,857 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): sudo -n grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:40:51,912 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:40:51,912 - server-audit - INFO - STDOUT: 
+2025-05-11 18:40:51,912 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:40:51,912 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:40:51,912 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sudo -n sysctl net.ipv4.ip_forward
+2025-05-11 18:40:51,967 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:40:51,967 - server-audit - INFO - STDOUT: net.ipv4.ip_forward = 1
+
+2025-05-11 18:40:51,967 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:40:51,967 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:40:51,967 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): sudo -n rfkill list
+2025-05-11 18:40:52,021 - server-audit - ERROR - Ошибка sudo для критерия 610: sudo: rfkill: command not found
+
+2025-05-11 18:40:52,022 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): sudo -n systemctl is-active auditd
+2025-05-11 18:40:52,082 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:40:52,082 - server-audit - INFO - STDOUT: inactive
+
+2025-05-11 18:40:52,082 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:40:52,082 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:40:52,082 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): sudo -n grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:40:52,141 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:40:52,141 - server-audit - INFO - STDOUT: #	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+
+2025-05-11 18:40:52,141 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:40:52,141 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:40:52,141 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): sudo -n grep Banner /etc/ssh/sshd_config
+2025-05-11 18:40:52,201 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:40:52,201 - server-audit - INFO - STDOUT: #Banner none
+
+2025-05-11 18:40:52,201 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:40:52,201 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:40:52,201 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): sudo -n stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:40:52,257 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:40:52,257 - server-audit - INFO - STDOUT: 644 0 0
+
+2025-05-11 18:40:52,257 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:40:52,257 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:40:52,257 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): sudo -n echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:40:52,315 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:40:52,315 - server-audit - INFO - STDOUT: 1
+
+2025-05-11 18:40:52,315 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:40:52,315 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:40:52,316 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): sudo -n find /home -name .forward
+2025-05-11 18:40:52,430 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:40:52,430 - server-audit - INFO - STDOUT: 
+2025-05-11 18:40:52,430 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:40:52,430 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:40:52,473 - server-audit - INFO - Временный файл sudoers удален
+2025-05-11 18:40:52,473 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:43:11,383 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:43:11,387 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 18:43:11,611 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:43:19,332 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:43:19,370 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:43:19,370 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:43:19,376 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:43:19,475 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:43:19,475 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:43:19,475 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:43:19,858 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:43:19,858 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: dpkg -l | grep unattended-upgrades
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:19,858 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:19,859 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:43:19,859 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:43:19,859 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:43:19,969 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:43:19,969 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: findmnt -n /tmp
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:19,969 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:19,969 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:43:19,970 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:43:19,970 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:43:20,077 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:43:20,078 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep ^password /boot/grub/grub.cfg
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+grep: /boot/grub/grub.cfg: Permission denied
+Команда завершилась с ошибкой: 2
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,078 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,078 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:43:20,078 - server-audit - INFO - Критерий 310 ПРОЙДЕН
+2025-05-11 18:43:20,078 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+2025-05-11 18:43:20,188 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:43:20,188 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep -E ^s**s+hards+core /etc/security/limits.conf
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,188 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,188 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:43:20,188 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:43:20,188 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:43:20,294 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:43:20,294 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: sysctl net.ipv4.ip_forward
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+net.ipv4.ip_forward = 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,294 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,294 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:43:20,295 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:43:20,295 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:43:20,400 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:43:20,400 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: rfkill list
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+/tmp/scan_cmd.sh: line 5: rfkill: command not found
+Команда завершилась с ошибкой: 127
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,401 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,401 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:43:20,401 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:43:20,401 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:43:20,507 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:43:20,508 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: systemctl is-active auditd
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+inactive
+Команда завершилась с ошибкой: 4
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,508 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,508 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:43:20,508 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:43:20,508 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:43:20,608 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:43:20,608 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep PASS_MAX_DAYS /etc/login.defs
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+#	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,608 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,608 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:43:20,608 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:43:20,608 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:43:20,715 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:43:20,715 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep Banner /etc/ssh/sshd_config
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+#Banner none
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,716 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,716 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:43:20,716 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:43:20,716 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:43:20,827 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:43:20,827 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: stat -c %a %u %g /etc/passwd
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+644 0 0
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,827 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,828 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:43:20,828 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:43:20,828 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:43:20,936 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:43:20,937 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: echo /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin | grep -q :: && echo Empty Directory || echo 1
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:20,937 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:20,937 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:43:20,937 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:43:20,937 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:43:21,059 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:43:21,059 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: find /home -name .forward
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+find: ‘/home/aidar’: Permission denied
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:43:21,060 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:43:21,060 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:43:21,060 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:43:21,060 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:45:13,335 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:45:13,339 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 18:45:13,560 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:45:21,154 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:45:21,175 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:45:21,175 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:45:21,181 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:45:21,281 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:45:21,282 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:45:21,282 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:45:21,656 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:45:21,656 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: dpkg -l | grep unattended-upgrades
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:21,656 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:21,656 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:45:21,657 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:45:21,657 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:45:21,764 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:45:21,764 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: findmnt -n /tmp
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:21,764 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:21,765 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:45:21,765 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:45:21,765 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:45:21,872 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:45:21,873 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep ^password /boot/grub/grub.cfg
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+grep: /boot/grub/grub.cfg: Permission denied
+Команда завершилась с ошибкой: 2
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:21,873 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:21,873 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:45:21,873 - server-audit - INFO - Критерий 310 ПРОЙДЕН
+2025-05-11 18:45:21,873 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E '^\s*\*\s+hard\s+core' /etc/security/limits.conf
+2025-05-11 18:45:21,979 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:45:21,979 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep -E '^\s*\*\s+hard\s+core' /etc/security/limits.conf
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:21,979 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:21,980 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:45:21,980 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:45:21,980 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:45:22,088 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:45:22,088 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: sysctl net.ipv4.ip_forward
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+net.ipv4.ip_forward = 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:22,088 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:22,089 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:45:22,089 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:45:22,089 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:45:22,194 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:45:22,194 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: rfkill list
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+/tmp/scan_cmd.sh: line 5: rfkill: command not found
+Команда завершилась с ошибкой: 127
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:22,194 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:22,194 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:45:22,194 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:45:22,194 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:45:22,304 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:45:22,304 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: systemctl is-active auditd
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+inactive
+Команда завершилась с ошибкой: 4
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:22,304 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:22,304 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:45:22,305 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:45:22,305 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:45:22,400 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:45:22,400 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep PASS_MAX_DAYS /etc/login.defs
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+#	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:22,400 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:22,400 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:45:22,400 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:45:22,400 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:45:22,505 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:45:22,506 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep Banner /etc/ssh/sshd_config
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+#Banner none
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:22,506 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:22,506 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:45:22,506 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:45:22,506 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:45:22,616 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:45:22,616 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: stat -c %a %u %g /etc/passwd
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+644 0 0
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:22,616 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:22,616 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:45:22,616 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:45:22,616 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:45:22,722 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:45:22,723 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: echo /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin | grep -q :: && echo Empty Directory || echo 1
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:22,724 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:22,724 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:45:22,724 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:45:22,724 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:45:22,843 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:45:22,843 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: find /home -name .forward
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+find: ‘/home/aidar’: Permission denied
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:45:22,844 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:45:22,844 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:45:22,844 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:45:22,844 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:47:38,930 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:47:38,947 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем root
+2025-05-11 18:47:38,947 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:47:38,952 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:47:41,179 - paramiko.transport - INFO - Authentication (password) failed.
+2025-05-11 18:47:41,180 - server-audit - ERROR - Ошибка при сканировании: Authentication failed.
+2025-05-11 18:47:41,231 - server-audit - ERROR - Ошибка при сканировании сервера 25.15.212.99: Authentication failed.
+2025-05-11 18:49:43,046 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 18:49:43,251 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 18:49:50,400 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:49:50,418 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем root
+2025-05-11 18:49:50,418 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:49:50,423 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:49:52,716 - paramiko.transport - INFO - Authentication (password) failed.
+2025-05-11 18:49:52,716 - server-audit - ERROR - Ошибка при сканировании: Authentication failed.
+2025-05-11 18:49:52,779 - server-audit - ERROR - Ошибка при сканировании сервера 25.15.212.99: Authentication failed.
+2025-05-11 18:57:22,820 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:57:22,905 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:57:22,906 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:57:22,912 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:57:22,994 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:57:22,995 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:57:22,995 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:57:23,370 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:57:23,370 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: dpkg -l | grep unattended-upgrades
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:23,370 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:23,370 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:57:23,370 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:57:23,370 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:57:23,478 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:57:23,479 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: findmnt -n /tmp
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:23,479 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:23,480 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:57:23,480 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:57:23,480 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:57:23,587 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:57:23,588 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep ^password /boot/grub/grub.cfg
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+grep: /boot/grub/grub.cfg: Permission denied
+Команда завершилась с ошибкой: 2
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:23,588 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:23,588 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:57:23,588 - server-audit - INFO - Критерий 310 ПРОЙДЕН
+2025-05-11 18:57:23,588 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E '^\s*\*\s+hard\s+core' /etc/security/limits.conf
+2025-05-11 18:57:23,697 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:57:23,698 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep -E '^\s*\*\s+hard\s+core' /etc/security/limits.conf
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:23,698 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:23,698 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:57:23,698 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:57:23,698 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:57:23,808 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:57:23,809 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: sysctl net.ipv4.ip_forward
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+net.ipv4.ip_forward = 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:23,809 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:23,809 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:57:23,809 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:57:23,809 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:57:23,912 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:57:23,912 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: rfkill list
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+/tmp/scan_cmd.sh: line 5: rfkill: command not found
+Команда завершилась с ошибкой: 127
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:23,912 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:23,912 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:57:23,913 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:57:23,913 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:57:24,014 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:57:24,014 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: systemctl is-active auditd
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+inactive
+Команда завершилась с ошибкой: 4
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:24,014 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:24,014 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:57:24,014 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:57:24,014 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:57:24,117 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:57:24,117 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep PASS_MAX_DAYS /etc/login.defs
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+#	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:24,117 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:24,117 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:57:24,118 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:57:24,118 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:57:24,223 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:57:24,223 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep Banner /etc/ssh/sshd_config
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+#Banner none
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:24,223 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:24,223 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:57:24,224 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:57:24,224 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:57:24,330 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:57:24,330 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: stat -c %a %u %g /etc/passwd
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+644 0 0
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:24,330 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:24,331 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:57:24,331 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:57:24,331 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:57:24,434 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:57:24,434 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: echo /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin | grep -q :: && echo Empty Directory || echo 1
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:24,434 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:24,434 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:57:24,434 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:57:24,435 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:57:24,555 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:57:24,555 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: find /home -name .forward
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+find: ‘/home/aidar’: Permission denied
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:57:24,555 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:57:24,555 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:57:24,555 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:57:24,555 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 18:59:08,439 - server-audit - INFO - Начало сканирования сервера 25.15.212.99
+2025-05-11 18:59:08,469 - server-audit - INFO - Подключение к серверу 25.15.212.99 по SSH с пользователем ayan
+2025-05-11 18:59:08,469 - server-audit - INFO - Используется аутентификация по паролю
+2025-05-11 18:59:08,475 - paramiko.transport - INFO - Connected (version 2.0, client OpenSSH_9.6p1)
+2025-05-11 18:59:08,557 - paramiko.transport - INFO - Authentication (password) successful!
+2025-05-11 18:59:08,557 - server-audit - INFO - Успешное подключение к 25.15.212.99. Начинаем выполнение проверок.
+2025-05-11 18:59:08,557 - server-audit - INFO - Выполнение команды для критерия 110 (1.1. Ensure periodic security updates are configured): dpkg -l | grep unattended-upgrades
+2025-05-11 18:59:08,927 - server-audit - INFO - Результат выполнения команды для критерия 110:
+2025-05-11 18:59:08,927 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: dpkg -l | grep unattended-upgrades
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+ii  unattended-upgrades                  2.9.1+nmu4ubuntu1                       all          automatic installation of security upgrades
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:08,927 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:08,927 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'unattended-upgrades'
+2025-05-11 18:59:08,927 - server-audit - INFO - Критерий 110 ПРОЙДЕН
+2025-05-11 18:59:08,927 - server-audit - INFO - Выполнение команды для критерия 210 (2.1. Ensure /tmp is configured): findmnt -n /tmp
+2025-05-11 18:59:09,031 - server-audit - INFO - Результат выполнения команды для критерия 210:
+2025-05-11 18:59:09,032 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: findmnt -n /tmp
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,032 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,032 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'noexec'
+2025-05-11 18:59:09,032 - server-audit - INFO - Критерий 210 НЕ ПРОЙДЕН
+2025-05-11 18:59:09,032 - server-audit - INFO - Выполнение команды для критерия 310 (3.1. Ensure bootloader password is set): grep "^password" /boot/grub/grub.cfg
+2025-05-11 18:59:09,137 - server-audit - INFO - Результат выполнения команды для критерия 310:
+2025-05-11 18:59:09,137 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep ^password /boot/grub/grub.cfg
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+grep: /boot/grub/grub.cfg: Permission denied
+Команда завершилась с ошибкой: 2
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,138 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,138 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'password'
+2025-05-11 18:59:09,138 - server-audit - INFO - Критерий 310 ПРОЙДЕН
+2025-05-11 18:59:09,138 - server-audit - INFO - Выполнение команды для критерия 409 (4.1. Ensure core dumps are restricted): grep -E '^\s*\*\s+hard\s+core' /etc/security/limits.conf
+2025-05-11 18:59:09,246 - server-audit - INFO - Результат выполнения команды для критерия 409:
+2025-05-11 18:59:09,246 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep -E '^\s*\*\s+hard\s+core' /etc/security/limits.conf
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,246 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,247 - server-audit - INFO - Сравниваем с ожидаемым результатом: '* hard core 0'
+2025-05-11 18:59:09,247 - server-audit - INFO - Критерий 409 НЕ ПРОЙДЕН
+2025-05-11 18:59:09,247 - server-audit - INFO - Выполнение команды для критерия 509 (5.1. Ensure IP forwarding is disabled): sysctl net.ipv4.ip_forward
+2025-05-11 18:59:09,352 - server-audit - INFO - Результат выполнения команды для критерия 509:
+2025-05-11 18:59:09,353 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: sysctl net.ipv4.ip_forward
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+net.ipv4.ip_forward = 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,353 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,353 - server-audit - INFO - Сравниваем с ожидаемым результатом: '0'
+2025-05-11 18:59:09,353 - server-audit - INFO - Критерий 509 НЕ ПРОЙДЕН
+2025-05-11 18:59:09,353 - server-audit - INFO - Выполнение команды для критерия 610 (6.1. Ensure wireless interfaces are disabled): rfkill list
+2025-05-11 18:59:09,459 - server-audit - INFO - Результат выполнения команды для критерия 610:
+2025-05-11 18:59:09,459 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: rfkill list
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+/tmp/scan_cmd.sh: line 5: rfkill: command not found
+Команда завершилась с ошибкой: 127
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,459 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,459 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'Soft blocked: yes'
+2025-05-11 18:59:09,459 - server-audit - INFO - Критерий 610 НЕ ПРОЙДЕН
+2025-05-11 18:59:09,460 - server-audit - INFO - Выполнение команды для критерия 710 (7.1. Ensure audit is enabled): systemctl is-active auditd
+2025-05-11 18:59:09,571 - server-audit - INFO - Результат выполнения команды для критерия 710:
+2025-05-11 18:59:09,571 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: systemctl is-active auditd
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+inactive
+Команда завершилась с ошибкой: 4
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,571 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,571 - server-audit - INFO - Сравниваем с ожидаемым результатом: 'active'
+2025-05-11 18:59:09,571 - server-audit - INFO - Критерий 710 ПРОЙДЕН
+2025-05-11 18:59:09,571 - server-audit - INFO - Выполнение команды для критерия 810 (8.1. Ensure password expiration is 90 days or less): grep PASS_MAX_DAYS /etc/login.defs
+2025-05-11 18:59:09,680 - server-audit - INFO - Результат выполнения команды для критерия 810:
+2025-05-11 18:59:09,680 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep PASS_MAX_DAYS /etc/login.defs
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+#	PASS_MAX_DAYS	Maximum number of days a password may be used.
+PASS_MAX_DAYS	99999
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,681 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,681 - server-audit - INFO - Сравниваем с ожидаемым результатом: '90'
+2025-05-11 18:59:09,681 - server-audit - INFO - Критерий 810 НЕ ПРОЙДЕН
+2025-05-11 18:59:09,681 - server-audit - INFO - Выполнение команды для критерия 910 (9.1. Ensure SSH warning banner is configured): grep Banner /etc/ssh/sshd_config
+2025-05-11 18:59:09,787 - server-audit - INFO - Результат выполнения команды для критерия 910:
+2025-05-11 18:59:09,787 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: grep Banner /etc/ssh/sshd_config
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+#Banner none
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,788 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,788 - server-audit - INFO - Сравниваем с ожидаемым результатом: '/etc/issue.net'
+2025-05-11 18:59:09,788 - server-audit - INFO - Критерий 910 НЕ ПРОЙДЕН
+2025-05-11 18:59:09,788 - server-audit - INFO - Выполнение команды для критерия 1010 (10.1. Ensure permissions on /etc/passwd are configured): stat -c "%a %u %g" /etc/passwd
+2025-05-11 18:59:09,893 - server-audit - INFO - Результат выполнения команды для критерия 1010:
+2025-05-11 18:59:09,893 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: stat -c %a %u %g /etc/passwd
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+644 0 0
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,893 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,893 - server-audit - INFO - Сравниваем с ожидаемым результатом: '644 0 0'
+2025-05-11 18:59:09,893 - server-audit - INFO - Критерий 1010 ПРОЙДЕН
+2025-05-11 18:59:09,894 - server-audit - INFO - Выполнение команды для критерия 1110 (11.1. Ensure root PATH integrity): echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"
+2025-05-11 18:59:09,998 - server-audit - INFO - Результат выполнения команды для критерия 1110:
+2025-05-11 18:59:09,999 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: echo /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin | grep -q :: && echo Empty Directory || echo 1
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:09,999 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:09,999 - server-audit - INFO - Сравниваем с ожидаемым результатом: '1'
+2025-05-11 18:59:09,999 - server-audit - INFO - Критерий 1110 ПРОЙДЕН
+2025-05-11 18:59:09,999 - server-audit - INFO - Выполнение команды для критерия 1210 (12.1. Ensure no users have .forward files): find /home -name .forward
+2025-05-11 18:59:10,118 - server-audit - INFO - Результат выполнения команды для критерия 1210:
+2025-05-11 18:59:10,118 - server-audit - INFO - STDOUT: === НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ===
+Команда: find /home -name .forward
+=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===
+find: ‘/home/aidar’: Permission denied
+Команда завершилась с ошибкой: 1
+=== КОНЕЦ ВЫПОЛНЕНИЯ ===
+
+2025-05-11 18:59:10,119 - server-audit - INFO - STDERR: sudo: a password is required
+
+2025-05-11 18:59:10,119 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
+2025-05-11 18:59:10,119 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
+2025-05-11 18:59:10,119 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.

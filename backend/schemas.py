@@ -102,6 +102,7 @@ class ScanRequest(BaseModel):
     ssh_key: Optional[str] = None
     connection_type: str = "ssh"
     criteria_ids: List[int]
+    use_sudo: bool = False  # Новое поле для использования sudo
 
 class ScanResponse(BaseModel):
     scan_id: int

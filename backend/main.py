@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, Form
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -30,13 +30,14 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Server Security Audit", version="1.0.0")
 
-# Добавляем CORS middleware
+# Добавляем CORS middleware с расширенными настройками
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # В продакшене нужно ограничить до реальных доменов
+    allow_origins=["*"],  # Разрешаем запросы от любых источников
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 # OAuth2 для аутентификации
@@ -52,18 +53,28 @@ def get_db():
 
 # Endpoint для аутентификации и получения токена
 @app.post("/token", response_model=schemas.Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+async def login_for_access_token(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(get_db)
+):
+    # Логирование попытки входа для отладки
+    logger.info(f"Попытка входа с именем пользователя: {form_data.username}")
+    
     user = auth.authenticate_user(db, form_data.username, form_data.password)
     if not user:
+        logger.warning(f"Неудачная попытка входа для пользователя: {form_data.username}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    
     access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = auth.create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
+    
+    logger.info(f"Успешный вход для пользователя: {form_data.username}")
     return {"access_token": access_token, "token_type": "bearer"}
 
 # Dependency для получения текущего пользователя
@@ -119,7 +130,8 @@ async def run_scan(scan_request: schemas.ScanRequest, db: Session = Depends(get_
                                     scan_request.password, 
                                     scan_request.ssh_key,
                                     scan_request.connection_type,
-                                    selected_criteria)
+                                    selected_criteria,
+                                    scan_request.use_sudo)
         
         # Сохраняем результаты сканирования
         for result in results:
@@ -147,7 +159,7 @@ async def run_scan(scan_request: schemas.ScanRequest, db: Session = Depends(get_
             "message": f"Ошибка при сканировании: {str(e)}"
         }
 
-async def perform_scan(server_ip, username, password, ssh_key, connection_type, criteria):
+async def perform_scan(server_ip, username, password, ssh_key, connection_type, criteria, use_sudo=False):
     """
     Выполняет сканирование сервера на соответствие указанным критериям.
     Возвращает список результатов сканирования.
@@ -157,40 +169,96 @@ async def perform_scan(server_ip, username, password, ssh_key, connection_type, 
     try:
         # Подключаемся к серверу по SSH
         if connection_type == "ssh":
+            logger.info(f"Подключение к серверу {server_ip} по SSH с пользователем {username}")
             client = paramiko.SSHClient()
             client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             
             if ssh_key:
+                logger.info(f"Используется SSH-ключ: {ssh_key}")
                 private_key = paramiko.RSAKey.from_private_key_file(ssh_key)
                 client.connect(server_ip, username=username, pkey=private_key)
             else:
+                logger.info("Используется аутентификация по паролю")
                 client.connect(server_ip, username=username, password=password)
+                
+            logger.info(f"Успешное подключение к {server_ip}. Начинаем выполнение проверок.")
                 
             # Для каждого критерия выполняем проверку
             for criterion in criteria:
                 try:
-                    # Выполняем команду аудита
+                    # Получаем команду проверки
                     cmd = criterion.check_command
-                    stdin, stdout, stderr = client.exec_command(cmd)
+                    
+                    logger.info(f"Выполнение команды для критерия {criterion.id} ({criterion.name}): {cmd}")
+                    
+                    # Проверяем, что команда не пустая
+                    if not cmd:
+                        logger.warning(f"Пустая команда для критерия {criterion.id}. Пропускаем.")
+                        results.append({
+                            "criterion_id": criterion.id,
+                            "status": "Error",
+                            "details": "Команда проверки не определена",
+                            "remediation": criterion.remediation
+                        })
+                        continue
+                    
+                    # Создаем скрипт для выполнения команды с дополнительным контекстом
+                    script_content = f"""#!/bin/bash
+echo "=== НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ==="
+echo "Команда: {cmd}"
+echo "=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ==="
+{cmd} 2>&1 || echo "Команда завершилась с ошибкой: $?"
+echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
+"""
+                    # Создаем временный скрипт на удаленном сервере
+                    create_script_cmd = f"cat > /tmp/scan_cmd.sh << 'EOF'\n{script_content}\nEOF\nchmod +x /tmp/scan_cmd.sh"
+                    stdin, stdout, stderr = client.exec_command(create_script_cmd)
+                    
+                    # Выполняем скрипт (с sudo если нужно)
+                    if use_sudo and username != 'root':
+                        exec_cmd = "sudo -n bash /tmp/scan_cmd.sh || bash /tmp/scan_cmd.sh"
+                    else:
+                        exec_cmd = "bash /tmp/scan_cmd.sh"
+                    
+                    stdin, stdout, stderr = client.exec_command(exec_cmd)
                     output = stdout.read().decode('utf-8')
                     error = stderr.read().decode('utf-8')
                     
+                    # Удаляем временный скрипт
+                    client.exec_command("rm -f /tmp/scan_cmd.sh")
+                    
+                    # Логируем вывод команды
+                    logger.info(f"Результат выполнения команды для критерия {criterion.id}:")
+                    logger.info(f"STDOUT: {output}")
+                    if error:
+                        logger.info(f"STDERR: {error}")
+                    
+                    # Добавляем более очевидные сообщения для пустого вывода
+                    if not output.strip() and not error.strip():
+                        output = "Команда выполнена, но не вернула никакого вывода"
+                    
                     # Анализируем результат и определяем статус
-                    if criterion.expected_output in output:
+                    expected = criterion.expected_output
+                    logger.info(f"Сравниваем с ожидаемым результатом: '{expected}'")
+                    
+                    if expected and expected in output:
                         status = "Pass"
+                        logger.info(f"Критерий {criterion.id} ПРОЙДЕН")
                     else:
                         status = "Fail"
+                        logger.info(f"Критерий {criterion.id} НЕ ПРОЙДЕН")
                     
                     # Добавляем результат
                     results.append({
                         "criterion_id": criterion.id,
                         "status": status,
-                        "details": output if status == "Pass" else error or output,
+                        "details": output,
                         "remediation": criterion.remediation if status == "Fail" else ""
                     })
                     
                 except Exception as e:
                     # В случае ошибки при выполнении проверки
+                    logger.error(f"Ошибка при выполнении команды для критерия {criterion.id}: {str(e)}")
                     results.append({
                         "criterion_id": criterion.id,
                         "status": "Error",
@@ -198,12 +266,13 @@ async def perform_scan(server_ip, username, password, ssh_key, connection_type, 
                         "remediation": criterion.remediation
                     })
             
+            logger.info(f"Сканирование сервера {server_ip} завершено. Закрываем SSH-соединение.")
             client.close()
             
         # Для WinRM (Windows Remote Management)
         elif connection_type == "winrm":
+            logger.info(f"Подключение к серверу {server_ip} по WinRM пока не реализовано")
             # Здесь можно реализовать подключение к Windows-серверам через WinRM
-            # Пример кода для WinRM будет отличаться от SSH
             pass
         
     except Exception as e:
