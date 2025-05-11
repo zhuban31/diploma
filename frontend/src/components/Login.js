@@ -1,33 +1,53 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Container, Typography, TextField, Button, Box, Paper, Alert } from '@mui/material';
-import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth();
-  const navigate = useNavigate();
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess(false);
     
     if (!username || !password) {
-      setError('Please enter both username and password');
+      setError('Пожалуйста, введите имя пользователя и пароль');
       return;
     }
     
     try {
-      const success = await login(username, password);
-      if (success) {
-        navigate('/');
-      } else {
-        setError('Invalid username or password');
+      const formData = new URLSearchParams();
+      formData.append('username', username);
+      formData.append('password', password);
+      
+      const response = await fetch('http://localhost:8000/token', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData
+      });
+      
+      if (!response.ok) {
+        throw new Error('Неверные учетные данные');
       }
+      
+      const data = await response.json();
+      
+      // Сохраняем токен
+      localStorage.setItem('token', data.access_token);
+      
+      setSuccess(true);
+      
+      // Перенаправляем на главную
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 1000);
+      
     } catch (error) {
-      setError('Login failed. Please try again.');
+      setError('Ошибка входа: ' + error.message);
       console.error('Login error:', error);
     }
   };
@@ -40,7 +60,7 @@ const Login = () => {
             Server Security Audit
           </Typography>
           <Typography variant="subtitle1" align="center" sx={{ mb: 3 }}>
-            Sign in to continue
+            Вход в систему
           </Typography>
           
           {error && (
@@ -49,12 +69,18 @@ const Login = () => {
             </Alert>
           )}
           
+          {success && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              Вход успешно выполнен! Перенаправление...
+            </Alert>
+          )}
+          
           <form onSubmit={handleSubmit}>
             <TextField
               margin="normal"
               required
               fullWidth
-              label="Username"
+              label="Имя пользователя"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -62,7 +88,7 @@ const Login = () => {
               margin="normal"
               required
               fullWidth
-              label="Password"
+              label="Пароль"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -74,7 +100,7 @@ const Login = () => {
               color="primary"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Войти
             </Button>
           </form>
         </Paper>

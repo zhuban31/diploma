@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -34,8 +34,19 @@ const theme = createTheme({
 
 // Защищенный маршрут
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  const { isAuthenticated, loading } = useAuth();
+  
+  // Если идет проверка токена - показываем загрузку
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
+  // Если не авторизован - перенаправляем на логин
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+  
+  return children;
 };
 
 function App() {
@@ -53,6 +64,14 @@ function App() {
 
 function AppContent() {
   const { isAuthenticated } = useAuth();
+  
+  // Проверка токена при загрузке
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log('Token in localStorage:', token);
+    
+    // Здесь можно добавить дополнительную логику проверки
+  }, []);
 
   return (
     <>
@@ -84,6 +103,7 @@ function AppContent() {
             <SettingsPage />
           </ProtectedRoute>
         } />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );

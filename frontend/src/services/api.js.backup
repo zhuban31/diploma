@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// ВАЖНО: URL должен быть для доступа из браузера!
-const API_URL = window.location.protocol + '//' + window.location.hostname + ':8000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -10,7 +9,7 @@ const api = axios.create({
   },
 });
 
-// Интерцептор для добавления токена в запросы
+// Interceptor для добавления токена в запросы
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -24,7 +23,7 @@ api.interceptors.request.use(
   }
 );
 
-// Интерцептор для обработки ответов
+// Interceptor для обработки ответов
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -49,29 +48,19 @@ const apiService = {
     }
   },
   
-  // Аутентификация - улучшенная версия с динамическим URL
+  // Аутентификация - исправленная версия
   login: async (username, password) => {
-    console.log('Попытка входа:', username);
+    // Создаем данные в формате application/x-www-form-urlencoded
+    const params = new URLSearchParams();
+    params.append('username', username);
+    params.append('password', password);
     
-    // Создаем данные формы в формате x-www-form-urlencoded
-    const formData = new URLSearchParams();
-    formData.append('username', username);
-    formData.append('password', password);
-    
-    try {
-      // Используем правильный URL для браузера
-      const response = await axios.post(`${API_URL}/token`, formData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      });
-      
-      console.log('Успешный вход:', response.data);
-      return response;
-    } catch (error) {
-      console.error('Ошибка входа:', error);
-      throw error;
-    }
+    // Прямое использование axios для обхода интерсепторов
+    return axios.post(`${API_URL}/token`, params, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
   },
   
   // Обертки для HTTP методов
