@@ -1,0 +1,198 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "System Updates",
+      "description": "Check system updates and patches"
+    },
+    {
+      "id": 2,
+      "name": "Filesystem Configuration",
+      "description": "Check filesystem security settings"
+    },
+    {
+      "id": 3,
+      "name": "Bootloader Configuration",
+      "description": "Check bootloader security"
+    },
+    {
+      "id": 4,
+      "name": "Process Hardening",
+      "description": "Check process security settings"
+    },
+    {
+      "id": 5,
+      "name": "Network Configuration",
+      "description": "Check network security settings"
+    },
+    {
+      "id": 6,
+      "name": "Network Hardening",
+      "description": "Check network hardening settings"
+    },
+    {
+      "id": 7,
+      "name": "Logging and Auditing",
+      "description": "Check audit and logging settings"
+    },
+    {
+      "id": 8,
+      "name": "User Account Settings",
+      "description": "Check user account security"
+    },
+    {
+      "id": 9,
+      "name": "Warning Banners",
+      "description": "Check login warning banners"
+    },
+    {
+      "id": 10,
+      "name": "File Permissions",
+      "description": "Check file permissions"
+    },
+    {
+      "id": 11,
+      "name": "User Settings",
+      "description": "Check user security settings"
+    },
+    {
+      "id": 12,
+      "name": "Account Settings",
+      "description": "Check account security"
+    }
+  ],
+  "criteria": [
+    {
+      "category_id": 1,
+      "id": 110,
+      "name": "1.1. Ensure periodic security updates are configured",
+      "description": "Description: It is important that servers receive periodic security updates to protect against known vulnerabilities",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 2,
+      "id": 210,
+      "name": "2.1. Ensure /tmp is configured",
+      "description": "Description: The /tmp directory is a world-writable directory used for temporary file storage",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 3,
+      "id": 310,
+      "name": "3.1. Ensure bootloader password is set",
+      "description": "Description: Setting the boot loader password will require the user to enter the password before modifying the boot configuration",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 4,
+      "id": 409,
+      "name": "4.1. Ensure core dumps are restricted",
+      "description": "Description: A core dump is the memory of an executable program when it crashes",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 5,
+      "id": 509,
+      "name": "5.1. Ensure IP forwarding is disabled",
+      "description": "Description: IP forwarding allows packets that aren't destined for the local host to pass through the system",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 6,
+      "id": 610,
+      "name": "6.1. Ensure wireless interfaces are disabled",
+      "description": "Description: Wireless devices and services can be a security risk on servers",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 7,
+      "id": 710,
+      "name": "7.1. Ensure audit is enabled",
+      "description": "Description: The auditd daemon should be installed and running to track security-relevant events",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 8,
+      "id": 810,
+      "name": "8.1. Ensure password expiration is 90 days or less",
+      "description": "Description: The PASS_MAX_DAYS parameter in /etc/login",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 9,
+      "id": 910,
+      "name": "9.1. Ensure SSH warning banner is configured",
+      "description": "Description: Warnings should be displayed to users at login to ensure legal protection",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 10,
+      "id": 1010,
+      "name": "10.1. Ensure permissions on /etc/passwd are configured",
+      "description": "Description: The /etc/passwd file contains user account information",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 11,
+      "id": 1110,
+      "name": "11.1. Ensure root PATH integrity",
+      "description": "Description: The root PATH should not include writable directories",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    },
+    {
+      "category_id": 12,
+      "id": 1210,
+      "name": "12.1. Ensure no users have .forward files",
+      "description": "Description: The",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
+      "severity": "Medium",
+      "automated": false
+    }
+  ]
+}

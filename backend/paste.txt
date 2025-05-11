@@ -1,0 +1,71 @@
+1.1. Ensure periodic security updates are configured
+Description: It is important that servers receive periodic security updates to protect against known vulnerabilities.
+Check: Run dpkg -l | grep unattended-upgrades
+Expected: unattended-upgrades package should be installed
+Remediation: Install the unattended-upgrades package with: apt-get install unattended-upgrades
+
+2.1. Ensure /tmp is configured
+Description: The /tmp directory is a world-writable directory used for temporary file storage.
+Check: Run findmnt -n /tmp
+Expected: /tmp should be mounted with noexec option
+Remediation: Edit /etc/fstab and add the noexec option to the /tmp mount
+
+3.1. Ensure bootloader password is set
+Description: Setting the boot loader password will require the user to enter the password before modifying the boot configuration.
+Check: Run grep "^password" /boot/grub/grub.cfg
+Expected: Password section should exist in the file
+Remediation: Run grub-mkpasswd-pbkdf2 and set the generated password in /etc/grub.d/40_custom
+
+4.1. Ensure core dumps are restricted
+Description: A core dump is the memory of an executable program when it crashes.
+Check: Run grep -E "^\s*\*\s+hard\s+core" /etc/security/limits.conf
+Expected: "* hard core 0" line should exist
+Remediation: Add "* hard core 0" to /etc/security/limits.conf
+
+5.1. Ensure IP forwarding is disabled
+Description: IP forwarding allows packets that aren't destined for the local host to pass through the system.
+Check: Run sysctl net.ipv4.ip_forward
+Expected: net.ipv4.ip_forward = 0
+Remediation: Set net.ipv4.ip_forward = 0 in /etc/sysctl.conf
+
+6.1. Ensure wireless interfaces are disabled
+Description: Wireless devices and services can be a security risk on servers.
+Check: Run rfkill list
+Expected: No wireless devices should be enabled
+Remediation: Disable wireless interfaces with rfkill block wifi
+
+7.1. Ensure audit is enabled
+Description: The auditd daemon should be installed and running to track security-relevant events.
+Check: Run systemctl is-active auditd
+Expected: active
+Remediation: Install auditd package and enable it with systemctl enable auditd
+
+8.1. Ensure password expiration is 90 days or less
+Description: The PASS_MAX_DAYS parameter in /etc/login.defs controls password expiration.
+Check: Run grep PASS_MAX_DAYS /etc/login.defs
+Expected: PASS_MAX_DAYS 90 or less
+Remediation: Edit /etc/login.defs and set PASS_MAX_DAYS to 90 or less
+
+9.1. Ensure SSH warning banner is configured
+Description: Warnings should be displayed to users at login to ensure legal protection.
+Check: Run grep Banner /etc/ssh/sshd_config
+Expected: Banner /etc/issue.net
+Remediation: Edit /etc/ssh/sshd_config and add Banner /etc/issue.net
+
+10.1. Ensure permissions on /etc/passwd are configured
+Description: The /etc/passwd file contains user account information.
+Check: Run stat -c "%a %u %g" /etc/passwd
+Expected: 644 0 0
+Remediation: Run chmod 644 /etc/passwd and chown root:root /etc/passwd
+
+11.1. Ensure root PATH integrity
+Description: The root PATH should not include writable directories.
+Check: Run echo $PATH | grep -q :: && echo "Empty Directory in root PATH"
+Expected: No output should be returned
+Remediation: Edit root's PATH to remove any empty or world-writable directories
+
+12.1. Ensure no users have .forward files
+Description: The .forward file allows users to forward mail to an external address.
+Check: Run find /home -name .forward
+Expected: No files should be found
+Remediation: Remove any .forward files and configure MTA to not permit forwarding
