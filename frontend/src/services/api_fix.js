@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// ВАЖНО: URL должен быть для доступа из браузера!
-const API_URL = window.location.protocol + '//' + window.location.hostname + ':8000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -49,29 +48,15 @@ const apiService = {
     }
   },
   
-  // Аутентификация - улучшенная версия с динамическим URL
+  // Аутентификация с использованием FormData
   login: async (username, password) => {
-    console.log('Попытка входа:', username);
-    
-    // Создаем данные формы в формате x-www-form-urlencoded
-    const formData = new URLSearchParams();
+    // Используем FormData для отправки данных
+    const formData = new FormData();
     formData.append('username', username);
     formData.append('password', password);
     
-    try {
-      // Используем правильный URL для браузера
-      const response = await axios.post(`${API_URL}/token`, formData, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      });
-      
-      console.log('Успешный вход:', response.data);
-      return response;
-    } catch (error) {
-      console.error('Ошибка входа:', error);
-      throw error;
-    }
+    // Прямой вызов axios, чтобы не использовать интерцепторы
+    return axios.post(`${API_URL}/token`, formData);
   },
   
   // Обертки для HTTP методов

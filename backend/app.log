@@ -3,3 +3,42 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
     version = _bcrypt.__about__.__version__
 AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 15:19:31,132 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 16:03:25,416 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 16:18:43,223 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 16:18:43,232 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 16:18:43,451 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 16:31:15,832 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 16:31:15,841 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 16:31:16,061 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 16:31:23,557 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 16:31:23,763 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 16:32:53,444 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 16:32:53,646 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 16:32:55,206 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 16:32:55,407 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 16:42:13,197 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 16:42:13,201 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 16:42:13,422 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 16:43:06,484 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 16:43:06,691 - server-audit - INFO - Успешный вход для пользователя: admin

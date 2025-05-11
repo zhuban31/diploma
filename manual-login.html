@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manual Login</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 50px auto; padding: 20px; }
+        .card { padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        button { padding: 10px; background: blue; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Вход в систему в обход React</h2>
+        <p>Этот HTML-файл позволяет войти в систему и сохранить токен, после чего можно перейти на основной сайт.</p>
+        
+        <div>
+            <p><strong>Шаг 1:</strong> Нажмите кнопку ниже для получения токена:</p>
+            <button onclick="getToken()">Получить токен для admin</button>
+            <div id="token-result" style="margin-top: 10px;"></div>
+        </div>
+        
+        <div style="margin-top: 20px;">
+            <p><strong>Шаг 2:</strong> После получения токена, нажмите кнопку ниже для перехода на сайт:</p>
+            <button onclick="goToSite()">Перейти на сайт</button>
+        </div>
+    </div>
+
+    <script>
+        async function getToken() {
+            const resultDiv = document.getElementById('token-result');
+            
+            try {
+                const formData = new URLSearchParams();
+                formData.append('username', 'admin');
+                formData.append('password', 'admin123');
+                
+                const response = await fetch('http://localhost:8000/token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: formData
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Сохраняем токен в localStorage
+                localStorage.setItem('token', data.access_token);
+                
+                resultDiv.innerHTML = `
+                    <p style="color: green;">Токен успешно получен и сохранен!</p>
+                    <p>Теперь можно перейти на сайт.</p>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p style="color: red;">Ошибка: ${error.message}</p>
+                `;
+            }
+        }
+        
+        function goToSite() {
+            window.location.href = 'http://localhost:3000';
+        }
+    </script>
+</body>
+</html>
