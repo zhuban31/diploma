@@ -159,6 +159,109 @@ async def run_scan(scan_request: schemas.ScanRequest, db: Session = Depends(get_
             "message": f"Ошибка при сканировании: {str(e)}"
         }
 
+def determine_status(criterion_id, output, expected):
+    """
+    Directly determine status by looking for explicit failure patterns in output.
+    
+    Args:
+        criterion_id: The ID of the criterion being checked
+        output: The actual output from the command
+        expected: The expected output for a passing check
+    
+    Returns:
+        "Pass" if the check passes, "Fail" if it fails
+    """
+    # First, log the check details for debugging
+    logger.info(f"STATUS CHECK: criterion={criterion_id}, output='{output.strip()}'")
+    
+    # Explicit failure patterns - if any of these are in the output, the check fails
+    failure_patterns = [
+        "not set",
+        "Not properly configured", 
+        "not properly configured",
+        "not enabled", 
+        "Not enabled",
+        "incorrect",
+        "Incorrect",
+        "Permissions incorrect",
+        "not disabled",
+        "not installed",
+        "No appropriate warning",
+        "may be exposed",
+        "X11 forwarding not disabled",
+        "No outbound filtering",
+        "Remote logging not configured",
+        "SHA-512 not enabled",
+        "Core dumps may be exposed"
+    ]
+    
+    # Command errors usually indicate a fail
+    if "Команда завершилась с ошибкой" in output and criterion_id != 1210 and criterion_id != 1220:
+        logger.info(f"Command error detected for criterion {criterion_id}, marking as FAIL")
+        return "Fail"
+    
+    # For output patterns that indicate failure
+    for pattern in failure_patterns:
+        if pattern in output:
+            logger.info(f"Failure pattern '{pattern}' found in output for criterion {criterion_id}, marking as FAIL")
+            return "Fail"
+    
+    # Special case for empty output on non-find commands
+    # Skip these specific find commands where empty output is good
+    if not output.strip() and "find /home -name" not in str(criterion_id) and criterion_id != 1210 and criterion_id != 1220:
+        logger.info(f"Empty output for non-find command {criterion_id}, marking as FAIL")
+        return "Fail"
+    
+    # IPv6 disabled check needs special handling
+    if criterion_id == 615 and "disable_ipv6 = 0" in output:
+        logger.info(f"IPv6 not disabled for criterion {criterion_id}, marking as FAIL")
+        return "Fail"
+    
+    # IP forwarding check
+    if criterion_id == 509 and "ip_forward = 1" in output:
+        logger.info(f"IP forwarding enabled for criterion {criterion_id}, marking as FAIL")
+        return "Fail"
+    
+    # Password max days check
+    if criterion_id == 810 and "99999" in output:
+        logger.info(f"Password max days too high for criterion {criterion_id}, marking as FAIL")
+        return "Fail"
+    
+    # Special case for find commands - empty output is a pass
+    if (criterion_id == 1210 or criterion_id == 1220 or "find /home -name" in output) and not output.strip():
+        logger.info(f"Empty output for find command {criterion_id}, marking as PASS")
+        return "Pass"
+    
+    # For "No X found" patterns
+    no_found_patterns = [
+        "No world-writable files found",
+        "No unowned files found",
+        "No empty passwords",
+        "No .netrc files found",
+        "No active wireless interfaces",
+        "No world-writable directories without sticky bit found",
+        "No unconfined daemons"
+    ]
+    
+    for pattern in no_found_patterns:
+        if pattern in output:
+            logger.info(f"'No found' pattern '{pattern}' found in output for criterion {criterion_id}, marking as PASS")
+            return "Pass"
+    
+    # Special case for Prelink
+    if "Prelink not installed" in output:
+        logger.info(f"Prelink not installed for criterion {criterion_id}, marking as PASS")
+        return "Pass"
+    
+    # If the expected output is in the actual output, it passes
+    if expected and expected in output:
+        logger.info(f"Expected output '{expected}' found in output for criterion {criterion_id}, marking as PASS")
+        return "Pass"
+    
+    # Default case - if we're unsure, fail
+    logger.info(f"No clear pass condition met for criterion {criterion_id}, defaulting to FAIL")
+    return "Fail"
+    
 async def perform_scan(server_ip, username, password, ssh_key, connection_type, criteria, use_sudo=False):
     """
     Выполняет сканирование сервера на соответствие указанным критериям.
@@ -258,7 +361,7 @@ echo "=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ==="
 echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
 """
                     # Создаем временный скрипт на удаленном сервере
-                    create_script_cmd = f"cat > /tmp/scan_cmd.sh << 'EOF'\\n{script_content}\\nEOF\\nchmod +x /tmp/scan_cmd.sh"
+                    create_script_cmd = f"cat > /tmp/scan_cmd.sh << 'EOF'\n{script_content}\nEOF\nchmod +x /tmp/scan_cmd.sh"
                     stdin, stdout, stderr = client.exec_command(create_script_cmd)
                     
                     # Выполняем скрипт
@@ -294,39 +397,9 @@ echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
                     expected = criterion.expected_output
                     logger.info(f"Сравниваем с ожидаемым результатом: '{expected}'")
                     
-                    # УЛУЧШЕННАЯ ЛОГИКА: обрабатываем различные типы проверок
-                    status = "Fail"  # По умолчанию - не пройдено
-                    
-                    # Проверки с особыми случаями
-                    special_cases = {
-                        # Проверки на отсутствие (проходят, когда результат пустой)
-                        "find /home -name .forward": True,  # ID 1210
-                        "find /home -name .netrc": True,    # ID 1220
-                        
-                        # Проверки, которые ищут отсутствие (проходят, когда есть строка "No X found")
-                        "No world-writable files found": True,       # ID 1120
-                        "No unowned files found": True,              # ID 1130
-                        "No .netrc files found": True,               # ID 1220
-                        "No world-writable directories without sticky bit found": True, # ID 1050
-                        "No unconfined daemons": True,               # ID 620
-                        
-                        # Проверка на статус установки
-                        "Prelink not installed": True                # ID 420
-                    }
-                    
-                    # Обработка стандартных проверок (ищут наличие строки)
-                    if expected and expected in output:
-                        status = "Pass"
-                    # Обработка пустого ожидаемого вывода (некоторые проверки ожидают пустой результат)
-                    elif expected == "" and not output.strip():
-                        status = "Pass"
-                    # Обработка негативных проверок (ищут отсутствие)
-                    elif any(neg_check in output for neg_check in special_cases if special_cases[neg_check]):
-                        status = "Pass"
-                    # Проверки через имя команды
-                    elif any(cmd_match in criterion.check_command for cmd_match in special_cases if special_cases[cmd_match]):
-                        if output.strip() == "":
-                            status = "Pass"
+                    # ПОЛНОСТЬЮ ПЕРЕРАБОТАННАЯ ЛОГИКА ОПРЕДЕЛЕНИЯ СТАТУСА
+                    # Используем отдельную функцию для определения статуса
+                    status = determine_status(criterion.id, output, expected)
                     
                     # Логируем определенный статус
                     if status == "Pass":
@@ -334,7 +407,7 @@ echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
                     else:
                         logger.info(f"Критерий {criterion.id} НЕ ПРОЙДЕН")
                     
-                    # Теперь состояние в логах и в БД синхронизировано
+                    # Добавляем результат с правильно определенным статусом
                     results.append({
                         "criterion_id": criterion.id,
                         "status": status,
