@@ -1,7 +1,10 @@
 import axios from 'axios';
 
-// ВАЖНО: URL должен быть для доступа из браузера!
-const API_URL = window.location.protocol + '//' + window.location.hostname + ':8000';
+// Динамический URL на основе текущего хоста
+const currentHost = window.location.hostname;
+const API_URL = `http://${currentHost}:8000`;
+
+console.log('Using API URL:', API_URL);
 
 const api = axios.create({
   baseURL: API_URL,
@@ -59,7 +62,7 @@ const apiService = {
     formData.append('password', password);
     
     try {
-      // Используем правильный URL для браузера
+      // Используем динамический URL
       const response = await axios.post(`${API_URL}/token`, formData, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
