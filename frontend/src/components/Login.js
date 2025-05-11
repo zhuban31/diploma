@@ -22,7 +22,13 @@ const Login = () => {
       formData.append('username', username);
       formData.append('password', password);
       
-      const response = await fetch('http://localhost:8000/token', {
+      // Динамический URL на основе текущего хоста
+      const currentHost = window.location.hostname;
+      const apiUrl = `http://${currentHost}:8000/token`;
+      
+      console.log('Отправка запроса на:', apiUrl);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

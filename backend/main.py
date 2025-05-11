@@ -1,7 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException, status, Form, Request
+from fastapi import FastAPI, Depends, HTTPException, status, Form
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from typing import List, Optional
 import models, schemas, crud, auth
@@ -31,23 +30,15 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Server Security Audit", version="1.0.0")
 
-# Добавляем CORS middleware с максимальными разрешениями
+# Добавляем CORS middleware с расширенными настройками
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Разрешаем запросы от любых источников
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["*"],
 )
-
-# Разрешаем предварительные запросы OPTIONS
-@app.options("/{rest_of_path:path}")
-async def preflight_handler(rest_of_path: str):
-    return JSONResponse(
-        status_code=200,
-        content={"message": "OK"}
-    )
 
 # OAuth2 для аутентификации
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -84,29 +75,6 @@ async def login_for_access_token(
     )
     
     logger.info(f"Успешный вход для пользователя: {form_data.username}")
-    return {"access_token": access_token, "token_type": "bearer"}
-
-# Альтернативный endpoint для тестирования аутентификации
-@app.post("/auth/login")
-async def test_login(
-    username: str = Form(...),
-    password: str = Form(...),
-    db: Session = Depends(get_db)
-):
-    logger.info(f"Тестовый вход с именем пользователя: {username}")
-    
-    user = auth.authenticate_user(db, username, password)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password"
-        )
-    
-    access_token_expires = timedelta(minutes=auth.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = auth.create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
-    )
-    
     return {"access_token": access_token, "token_type": "bearer"}
 
 # Dependency для получения текущего пользователя
