@@ -258,7 +258,7 @@ echo "=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ==="
 echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
 """
                     # Создаем временный скрипт на удаленном сервере
-                    create_script_cmd = f"cat > /tmp/scan_cmd.sh << 'EOF'\n{script_content}\nEOF\nchmod +x /tmp/scan_cmd.sh"
+                    create_script_cmd = f"cat > /tmp/scan_cmd.sh << 'EOF'\\n{script_content}\\nEOF\\nchmod +x /tmp/scan_cmd.sh"
                     stdin, stdout, stderr = client.exec_command(create_script_cmd)
                     
                     # Выполняем скрипт
@@ -294,14 +294,47 @@ echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
                     expected = criterion.expected_output
                     logger.info(f"Сравниваем с ожидаемым результатом: '{expected}'")
                     
+                    # УЛУЧШЕННАЯ ЛОГИКА: обрабатываем различные типы проверок
+                    status = "Fail"  # По умолчанию - не пройдено
+                    
+                    # Проверки с особыми случаями
+                    special_cases = {
+                        # Проверки на отсутствие (проходят, когда результат пустой)
+                        "find /home -name .forward": True,  # ID 1210
+                        "find /home -name .netrc": True,    # ID 1220
+                        
+                        # Проверки, которые ищут отсутствие (проходят, когда есть строка "No X found")
+                        "No world-writable files found": True,       # ID 1120
+                        "No unowned files found": True,              # ID 1130
+                        "No .netrc files found": True,               # ID 1220
+                        "No world-writable directories without sticky bit found": True, # ID 1050
+                        "No unconfined daemons": True,               # ID 620
+                        
+                        # Проверка на статус установки
+                        "Prelink not installed": True                # ID 420
+                    }
+                    
+                    # Обработка стандартных проверок (ищут наличие строки)
                     if expected and expected in output:
                         status = "Pass"
+                    # Обработка пустого ожидаемого вывода (некоторые проверки ожидают пустой результат)
+                    elif expected == "" and not output.strip():
+                        status = "Pass"
+                    # Обработка негативных проверок (ищут отсутствие)
+                    elif any(neg_check in output for neg_check in special_cases if special_cases[neg_check]):
+                        status = "Pass"
+                    # Проверки через имя команды
+                    elif any(cmd_match in criterion.check_command for cmd_match in special_cases if special_cases[cmd_match]):
+                        if output.strip() == "":
+                            status = "Pass"
+                    
+                    # Логируем определенный статус
+                    if status == "Pass":
                         logger.info(f"Критерий {criterion.id} ПРОЙДЕН")
                     else:
-                        status = "Fail"
                         logger.info(f"Критерий {criterion.id} НЕ ПРОЙДЕН")
                     
-                    # Добавляем результат
+                    # Теперь состояние в логах и в БД синхронизировано
                     results.append({
                         "criterion_id": criterion.id,
                         "status": status,

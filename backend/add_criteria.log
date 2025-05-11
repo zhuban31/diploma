@@ -1,0 +1,30 @@
+2025-05-11 20:54:29,259 - add-criteria - INFO - Added new criterion: 120 - 1.2. Ensure system packages are up to date
+2025-05-11 20:54:29,260 - add-criteria - INFO - Added new criterion: 130 - 1.3. Ensure APT repositories use secure transports
+2025-05-11 20:54:29,260 - add-criteria - INFO - Added new criterion: 220 - 2.2. Ensure nodev option set on /tmp partition
+2025-05-11 20:54:29,261 - add-criteria - INFO - Added new criterion: 230 - 2.3. Ensure nosuid option set on /tmp partition
+2025-05-11 20:54:29,261 - add-criteria - INFO - Added new criterion: 320 - 3.2. Ensure permissions on bootloader config are configured
+2025-05-11 20:54:29,262 - add-criteria - INFO - Added new criterion: 330 - 3.3. Ensure authentication required for single user mode
+2025-05-11 20:54:29,262 - add-criteria - INFO - Added new criterion: 420 - 4.3. Ensure prelink is disabled
+2025-05-11 20:54:29,263 - add-criteria - INFO - Added new criterion: 430 - 4.4. Ensure core dumps are not readable by all users
+2025-05-11 20:54:29,263 - add-criteria - INFO - Added new criterion: 530 - 5.3. Ensure SSH MaxAuthTries is set to 4 or less
+2025-05-11 20:54:29,263 - add-criteria - INFO - Added new criterion: 540 - 5.4. Ensure SSH LogLevel is set to INFO
+2025-05-11 20:54:29,264 - add-criteria - INFO - Added new criterion: 560 - 5.6. Ensure SSH PermitEmptyPasswords is disabled
+2025-05-11 20:54:29,264 - add-criteria - INFO - Added new criterion: 570 - 5.7. Ensure SSH X11 forwarding is disabled
+2025-05-11 20:54:29,265 - add-criteria - INFO - Added new criterion: 640 - 6.4. Ensure outbound connections are restricted
+2025-05-11 20:54:29,265 - add-criteria - INFO - Added new criterion: 650 - 6.5. Ensure wireless network interfaces are disabled
+2025-05-11 20:54:29,266 - add-criteria - INFO - Added new criterion: 720 - 7.2. Ensure auditd service is enabled
+2025-05-11 20:54:29,266 - add-criteria - INFO - Added new criterion: 740 - 7.4. Ensure logrotate is configured
+2025-05-11 20:54:29,267 - add-criteria - INFO - Added new criterion: 750 - 7.5. Ensure remote syslog is configured
+2025-05-11 20:54:29,267 - add-criteria - INFO - Added new criterion: 830 - 8.3. Ensure minimum days between password changes is 7 or more
+2025-05-11 20:54:29,267 - add-criteria - INFO - Added new criterion: 840 - 8.4. Ensure password hashing algorithm is SHA-512
+2025-05-11 20:54:29,268 - add-criteria - INFO - Added new criterion: 920 - 9.2. Ensure /etc/issue contains appropriate warning
+2025-05-11 20:54:29,268 - add-criteria - INFO - Added new criterion: 930 - 9.3. Ensure remote login warning banner is configured
+2025-05-11 20:54:29,269 - add-criteria - INFO - Added new criterion: 1030 - 10.3. Ensure permissions on /etc/group are configured
+2025-05-11 20:54:29,269 - add-criteria - INFO - Added new criterion: 1040 - 10.4. Ensure permissions on /etc/gshadow are configured
+2025-05-11 20:54:29,269 - add-criteria - INFO - Added new criterion: 1050 - 10.5. Ensure no unauthorized world-writable directories exist
+2025-05-11 20:54:29,270 - add-criteria - INFO - Added new criterion: 1120 - 11.2. Ensure no world-writable files exist
+2025-05-11 20:54:29,270 - add-criteria - INFO - Added new criterion: 1130 - 11.3. Ensure no unowned files or directories exist
+2025-05-11 20:54:29,271 - add-criteria - INFO - Added new criterion: 1220 - 12.2. Ensure no users have .netrc files
+2025-05-11 20:54:29,271 - add-criteria - INFO - Added new criterion: 1230 - 12.3. Ensure all user home directories have proper permissions
+2025-05-11 20:54:29,271 - add-criteria - INFO - Added new criterion: 1240 - 12.4. Ensure default user umask is 027 or more restrictive
+2025-05-11 20:54:29,279 - add-criteria - INFO - Successfully added 29 new criteria to the database

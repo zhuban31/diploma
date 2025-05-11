@@ -1,0 +1,52 @@
+2025-05-11 21:04:34,578 - criteria-diagnostic - INFO - Found 51 criteria in database
+2025-05-11 21:04:34,578 - criteria-diagnostic - INFO - Criterion 110 uses standard presence check
+2025-05-11 21:04:34,578 - criteria-diagnostic - INFO - Criterion 210 uses standard presence check
+2025-05-11 21:04:34,578 - criteria-diagnostic - INFO - Criterion 310 uses standard presence check
+2025-05-11 21:04:34,578 - criteria-diagnostic - INFO - Criterion 409 uses standard presence check
+2025-05-11 21:04:34,578 - criteria-diagnostic - INFO - Criterion 509 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 610 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 710 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 810 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 910 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 1010 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 630 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 1210 has empty expected output - classified as 'standard_absence'
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 1110 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 615 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 520 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 412 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 820 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 1020 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 550 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 552 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 730 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 620 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 120 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 130 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 220 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 230 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 320 checks for correct configuration/permissions
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 330 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 420 checks for 'not something' pattern
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 430 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 530 checks for correct configuration/permissions
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 540 checks for correct configuration/permissions
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 560 checks for correct configuration/permissions
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 570 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 640 uses standard presence check
+2025-05-11 21:04:34,579 - criteria-diagnostic - INFO - Criterion 650 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 720 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 740 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 750 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 830 checks for correct configuration/permissions
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 840 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 920 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 930 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 1030 checks for correct configuration/permissions
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 1040 checks for correct configuration/permissions
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 1050 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 1120 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 1130 checks for 'No X found' pattern
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 1220 uses standard presence check
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 1230 checks for correct configuration/permissions
+2025-05-11 21:04:34,580 - criteria-diagnostic - INFO - Criterion 1240 checks for correct configuration/permissions

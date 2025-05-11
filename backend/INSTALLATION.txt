@@ -1,0 +1,41 @@
+
+#################################################################################
+#                SECURITY CRITERIA STATUS EVALUATION FIX                         #
+#################################################################################
+
+The issue is that the current system incorrectly evaluates security check results,
+causing many failed checks to be incorrectly reported as passed. This fix creates
+a completely new logic system to correct these issues.
+
+FOLLOW THESE STEPS:
+
+1. CREATE CRITERION RULES FILE:
+   First, this script analyzes your criteria and creates a rules file that will
+   be used to properly determine pass/fail status:
+
+   # Run this script to create the rules file
+   docker-compose exec backend python status_evaluation_fix.py
+
+2. MODIFY THE MAIN.PY FILE:
+   Open backend/main.py and make the following changes:
+
+   a. Find the `perform_scan` function (around line 350-400)
+   
+   b. Replace it with the complete function in "new_perform_scan.py"
+   
+   c. Add the `determine_status` function (around line 340, before perform_scan):
+      * Copy the determine_status function from "new_determine_status.py"
+      * Paste it right before the perform_scan function
+
+3. RESTART THE BACKEND:
+   After making these changes, restart your backend:
+
+   docker-compose restart backend
+
+4. RUN A TEST SCAN:
+   Run a new scan after applying these changes to verify that the fix works correctly.
+
+5. CHECK THE SCAN RESULTS:
+   Verify that the pass/fail statuses now correctly match the actual check results.
+
+#################################################################################

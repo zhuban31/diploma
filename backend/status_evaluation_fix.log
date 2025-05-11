@@ -1,0 +1,57 @@
+2025-05-11 21:15:11,867 - status-evaluation-fix - INFO - Starting security criteria status evaluation fix
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Analyzing 51 criteria to create proper evaluation rules
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 110: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 210: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 310: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 409: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 509: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 610: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 710: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 810: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 910: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 1010: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 630: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 1210: Using empty_result_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 1110: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 615: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 520: Using negative_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 412: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 820: Using no_found_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 1020: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 550: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 552: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 730: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 620: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 120: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 130: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 220: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 230: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 320: Using correct_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 330: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 420: Using negative_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 430: Using standard exact_match rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 530: Using correct_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 540: Using correct_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 560: Using correct_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 570: Using negative_is_pass rule
+2025-05-11 21:15:11,876 - status-evaluation-fix - INFO - Criterion 640: Using standard exact_match rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 650: Using standard exact_match rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 720: Using standard exact_match rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 740: Using standard exact_match rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 750: Using standard exact_match rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 830: Using correct_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 840: Using standard exact_match rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 920: Using standard exact_match rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 930: Using standard exact_match rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 1030: Using correct_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 1040: Using correct_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 1050: Using no_found_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 1120: Using no_found_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 1130: Using no_found_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 1220: Using no_found_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 1230: Using correct_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Criterion 1240: Using correct_is_pass rule
+2025-05-11 21:15:11,877 - status-evaluation-fix - INFO - Created evaluation rules for 51 criteria
+2025-05-11 21:15:11,878 - status-evaluation-fix - INFO - Generated new determine_status function
+2025-05-11 21:15:11,878 - status-evaluation-fix - INFO - Generated new perform_scan function
+2025-05-11 21:15:11,878 - status-evaluation-fix - INFO - Generated installation instructions
