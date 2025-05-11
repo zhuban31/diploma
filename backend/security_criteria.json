@@ -67,132 +67,132 @@
       "id": 110,
       "name": "1.1. Ensure periodic security updates are configured",
       "description": "Description: It is important that servers receive periodic security updates to protect against known vulnerabilities",
-      "check_command": "dpkg -l | grep unattended-upgrades",
-      "expected_output": "unattended-upgrades",
-      "remediation": "Install the unattended-upgrades package with: apt-get install unattended-upgrades",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 2,
       "id": 210,
       "name": "2.1. Ensure /tmp is configured",
       "description": "Description: The /tmp directory is a world-writable directory used for temporary file storage",
-      "check_command": "findmnt -n /tmp",
-      "expected_output": "noexec",
-      "remediation": "Edit /etc/fstab and add the noexec option to the /tmp mount",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 3,
       "id": 310,
       "name": "3.1. Ensure bootloader password is set",
       "description": "Description: Setting the boot loader password will require the user to enter the password before modifying the boot configuration",
-      "check_command": "grep \"^password\" /boot/grub/grub.cfg",
-      "expected_output": "password",
-      "remediation": "Run grub-mkpasswd-pbkdf2 and set the generated password in /etc/grub.d/40_custom",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 4,
       "id": 409,
       "name": "4.1. Ensure core dumps are restricted",
       "description": "Description: A core dump is the memory of an executable program when it crashes",
-      "check_command": "grep -E \"^\\s*\\*\\s+hard\\s+core\" /etc/security/limits.conf",
-      "expected_output": "* hard core 0",
-      "remediation": "Add \"* hard core 0\" to /etc/security/limits.conf",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 5,
       "id": 509,
       "name": "5.1. Ensure IP forwarding is disabled",
       "description": "Description: IP forwarding allows packets that aren't destined for the local host to pass through the system",
-      "check_command": "sysctl net.ipv4.ip_forward",
-      "expected_output": "0",
-      "remediation": "Set net.ipv4.ip_forward = 0 in /etc/sysctl.conf",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 6,
       "id": 610,
       "name": "6.1. Ensure wireless interfaces are disabled",
       "description": "Description: Wireless devices and services can be a security risk on servers",
-      "check_command": "rfkill list",
-      "expected_output": "Soft blocked: yes",
-      "remediation": "Disable wireless interfaces with rfkill block wifi",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 7,
       "id": 710,
       "name": "7.1. Ensure audit is enabled",
       "description": "Description: The auditd daemon should be installed and running to track security-relevant events",
-      "check_command": "systemctl is-active auditd",
-      "expected_output": "active",
-      "remediation": "Install auditd package and enable it with systemctl enable auditd",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 8,
       "id": 810,
       "name": "8.1. Ensure password expiration is 90 days or less",
-      "description": "Description: The PASS_MAX_DAYS parameter in /etc/login.defs controls password expiration",
-      "check_command": "grep PASS_MAX_DAYS /etc/login.defs",
-      "expected_output": "90",
-      "remediation": "Edit /etc/login.defs and set PASS_MAX_DAYS to 90 or less",
+      "description": "Description: The PASS_MAX_DAYS parameter in /etc/login",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 9,
       "id": 910,
       "name": "9.1. Ensure SSH warning banner is configured",
       "description": "Description: Warnings should be displayed to users at login to ensure legal protection",
-      "check_command": "grep Banner /etc/ssh/sshd_config",
-      "expected_output": "/etc/issue.net",
-      "remediation": "Edit /etc/ssh/sshd_config and add Banner /etc/issue.net",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 10,
       "id": 1010,
       "name": "10.1. Ensure permissions on /etc/passwd are configured",
       "description": "Description: The /etc/passwd file contains user account information",
-      "check_command": "stat -c \"%a %u %g\" /etc/passwd",
-      "expected_output": "644 0 0",
-      "remediation": "Run chmod 644 /etc/passwd and chown root:root /etc/passwd",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 11,
       "id": 1110,
       "name": "11.1. Ensure root PATH integrity",
       "description": "Description: The root PATH should not include writable directories",
-      "check_command": "echo $PATH | grep -q \"::\" && echo \"Empty Directory\" || echo \"1\"",
-      "expected_output": "1",
-      "remediation": "Edit root's PATH to remove any empty or world-writable directories",
+      "check_command": "",
+      "expected_output": "",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 12,
       "id": 1210,
       "name": "12.1. Ensure no users have .forward files",
-      "description": "Description: The .forward file allows users to forward mail to an external address",
-      "check_command": "find /home -name .forward",
+      "description": "Description: The",
+      "check_command": "",
       "expected_output": "",
-      "remediation": "Remove any .forward files and configure MTA to not permit forwarding",
+      "remediation": "",
       "severity": "Medium",
-      "automated": true
+      "automated": false
     },
     {
       "category_id": 6,
@@ -298,7 +298,7 @@
       "id": 620,
       "name": "6.2. Ensure no unconfined daemons exist",
       "description": "Description: AppArmor should confine all system daemons to enhance security",
-      "check_command": "ps -eZ | grep -v '^\\w\\{1,\\}-[\\w\\{1,\\}_]\\{1,\\} ' | grep -v '^system_u:system_r:initrc_t:s0 ' | grep -v '^unconfined_u:unconfined_r:unconfined_t:s0 ' | grep -v '^unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 ' | tr -s ' ' | cut -d ' ' -f2 | sort -u || echo 'No unconfined daemons'",
+      "check_command": "ps -eZ | grep -v \"^\\w\\{1,\\}-[\\w\\{1,\\}_]\\{1,\\} \" | grep -v \"^system_u:system_r:initrc_t:s0",
       "expected_output": "No unconfined daemons",
       "remediation": "Configure AppArmor profiles for any unconfined daemons",
       "severity": "Medium",

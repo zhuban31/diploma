@@ -185,7 +185,7 @@ def parse_paste_file(filepath):
             "id": 620,
             "name": "6.2. Ensure no unconfined daemons exist",
             "description": "Description: AppArmor should confine all system daemons to enhance security",
-            "check_command": "ps -eZ | grep -v \"^\\w\\{1,\\}-[\\w\\{1,\\}_]\\{1,\\} \" | grep -v \"^system_u:system_r:initrc_t:s0
+            "check_command": "ps -eZ | grep -v \"^\\w\\{1,\\}-[\\w\\{1,\\}_]\\{1,\\} \" | grep -v \"^system_u:system_r:initrc_t:s0",
             "expected_output": "No unconfined daemons",
             "remediation": "Configure AppArmor profiles for any unconfined daemons",
             "severity": "Medium",
