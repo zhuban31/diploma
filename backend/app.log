@@ -1499,3 +1499,12 @@ find: ‘/home/aidar’: Permission denied
 2025-05-11 18:59:10,119 - server-audit - INFO - Сравниваем с ожидаемым результатом: ''
 2025-05-11 18:59:10,119 - server-audit - INFO - Критерий 1210 НЕ ПРОЙДЕН
 2025-05-11 18:59:10,119 - server-audit - INFO - Сканирование сервера 25.15.212.99 завершено. Закрываем SSH-соединение.
+2025-05-11 20:04:29,444 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 20:04:29,653 - server-audit - INFO - Успешный вход для пользователя: admin
+2025-05-11 20:11:52,738 - server-audit - INFO - Попытка входа с именем пользователя: admin
+2025-05-11 20:11:52,740 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2025-05-11 20:11:52,958 - server-audit - INFO - Успешный вход для пользователя: admin

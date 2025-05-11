@@ -182,7 +182,49 @@ async def perform_scan(server_ip, username, password, ssh_key, connection_type, 
                 client.connect(server_ip, username=username, password=password)
                 
             logger.info(f"Успешное подключение к {server_ip}. Начинаем выполнение проверок.")
+            
+            # Проверка доступности sudo, если требуется
+            if use_sudo:
+                logger.info("Проверка работоспособности sudo...")
+                # Тест без sudo
+                stdin, stdout, stderr = client.exec_command("id")
+                output_without_sudo = stdout.read().decode('utf-8')
+                error_without_sudo = stderr.read().decode('utf-8')
+                logger.info(f"Тест без sudo: {output_without_sudo}")
                 
+                # Тест с sudo -n (проверка без пароля)
+                stdin, stdout, stderr = client.exec_command("sudo -n id")
+                output_with_sudo_n = stdout.read().decode('utf-8')
+                error_with_sudo_n = stderr.read().decode('utf-8')
+                logger.info(f"Тест с sudo -n: {output_with_sudo_n}, ошибки: {error_with_sudo_n}")
+                
+                # Если sudo -n не работает, настраиваем временный доступ
+                if "password is required" in error_with_sudo_n:
+                    logger.info("Sudo -n не работает, пробуем настроить временный sudo доступ")
+                    # Создаем временный файл sudoers
+                    sudo_command = f'echo "{password}" | sudo -S echo "Настройка временного sudo"'
+                    stdin, stdout, stderr = client.exec_command(sudo_command)
+                    output = stdout.read().decode('utf-8')
+                    error = stderr.read().decode('utf-8')
+                    logger.info(f"Настройка временного sudo: {error}")
+                
+                    # Создаем временное sudoers правило
+                    temp_sudoers_cmd = f"""echo "{password}" | sudo -S bash -c 'echo "{username} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/temp_{username}'"""
+                    stdin, stdout, stderr = client.exec_command(temp_sudoers_cmd)
+                    
+                    # Убедимся, что правило применилось
+                    stdin, stdout, stderr = client.exec_command("sudo -n id")
+                    output = stdout.read().decode('utf-8')
+                    error = stderr.read().decode('utf-8')
+                    
+                    if "password is required" in error:
+                        logger.warning("Не удалось настроить sudo без пароля, будем использовать обычный sudo")
+                        use_sudo_command = f'echo "{password}" | sudo -S'
+                    else:
+                        use_sudo_command = "sudo -n"
+                else:
+                    use_sudo_command = "sudo -n"
+            
             # Для каждого критерия выполняем проверку
             for criterion in criteria:
                 try:
@@ -202,6 +244,11 @@ async def perform_scan(server_ip, username, password, ssh_key, connection_type, 
                         })
                         continue
                     
+                    # Если нужно использовать sudo, добавляем его к команде
+                    if use_sudo and not cmd.startswith("sudo "):
+                        original_cmd = cmd
+                        cmd = f"{use_sudo_command} {cmd}"
+                    
                     # Создаем скрипт для выполнения команды с дополнительным контекстом
                     script_content = f"""#!/bin/bash
 echo "=== НАЧАЛО ВЫПОЛНЕНИЯ КОМАНДЫ ==="
@@ -214,13 +261,8 @@ echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
                     create_script_cmd = f"cat > /tmp/scan_cmd.sh << 'EOF'\n{script_content}\nEOF\nchmod +x /tmp/scan_cmd.sh"
                     stdin, stdout, stderr = client.exec_command(create_script_cmd)
                     
-                    # Выполняем скрипт (с sudo если нужно)
-                    if use_sudo and username != 'root':
-                        exec_cmd = "sudo -n bash /tmp/scan_cmd.sh || bash /tmp/scan_cmd.sh"
-                    else:
-                        exec_cmd = "bash /tmp/scan_cmd.sh"
-                    
-                    stdin, stdout, stderr = client.exec_command(exec_cmd)
+                    # Выполняем скрипт
+                    stdin, stdout, stderr = client.exec_command("bash /tmp/scan_cmd.sh")
                     output = stdout.read().decode('utf-8')
                     error = stderr.read().decode('utf-8')
                     
@@ -232,6 +274,17 @@ echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
                     logger.info(f"STDOUT: {output}")
                     if error:
                         logger.info(f"STDERR: {error}")
+                    
+                    # Проверка на ошибки sudo
+                    if use_sudo and "sudo:" in error and "command not found" in error:
+                        logger.error(f"Ошибка sudo для критерия {criterion.id}: {error}")
+                        results.append({
+                            "criterion_id": criterion.id,
+                            "status": "Error",
+                            "details": f"Ошибка выполнения sudo команды: {error}",
+                            "remediation": criterion.remediation
+                        })
+                        continue
                     
                     # Добавляем более очевидные сообщения для пустого вывода
                     if not output.strip() and not error.strip():
@@ -265,6 +318,12 @@ echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
                         "details": f"Ошибка при выполнении проверки: {str(e)}",
                         "remediation": criterion.remediation
                     })
+            
+            # Удаляем временный файл sudoers, если он был создан
+            if use_sudo and "temp_sudoers_cmd" in locals():
+                cleanup_cmd = f'echo "{password}" | sudo -S rm -f /etc/sudoers.d/temp_{username}'
+                stdin, stdout, stderr = client.exec_command(cleanup_cmd)
+                logger.info("Временный файл sudoers удален")
             
             logger.info(f"Сканирование сервера {server_ip} завершено. Закрываем SSH-соединение.")
             client.close()

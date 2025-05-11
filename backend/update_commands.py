@@ -32,7 +32,17 @@ def update_check_commands():
             910: {'cmd': 'grep Banner /etc/ssh/sshd_config', 'output': '/etc/issue.net'},
             1010: {'cmd': 'stat -c "%a %u %g" /etc/passwd', 'output': '644 0 0'},
             1110: {'cmd': 'echo $PATH | grep -q "::" && echo "Empty Directory" || echo "1"', 'output': '1'},
-            1210: {'cmd': 'find /home -name .forward', 'output': ''}
+            1210: {'cmd': 'find /home -name .forward', 'output': ''},
+            615: {'cmd': 'sysctl net.ipv6.conf.all.disable_ipv6', 'output': '1'},
+            520: {'cmd': 'systemctl is-enabled apache2 2>/dev/null || systemctl is-enabled nginx 2>/dev/null || echo disabled', 'output': 'disabled'},
+            412: {'cmd': 'sysctl kernel.randomize_va_space', 'output': '2'},
+            630: {'cmd': 'ufw status | grep -E "Status:\\s*active" || iptables -L -n | grep -q "REJECT\\|DROP" && echo "Firewall active"', 'output': 'Firewall active'},
+            820: {'cmd': 'cat /etc/shadow | awk -F: \'($2 == "" ) { print $1 " has no password" ; exit 1 }\' || echo "No empty passwords"', 'output': 'No empty passwords'},
+            730: {'cmd': 'dpkg -s rsyslog || dpkg -s syslog-ng || echo "No syslog service installed"', 'output': 'Status: install ok installed'},
+            1020: {'cmd': 'stat -c "%a %u %g" /etc/shadow', 'output': '640 0 42'},
+            550: {'cmd': 'grep -i "^PermitRootLogin" /etc/ssh/sshd_config | grep -i "no"', 'output': 'PermitRootLogin no'},
+            552: {'cmd': 'grep -i "^Protocol" /etc/ssh/sshd_config', 'output': 'Protocol 2'},
+            620: {'cmd': 'ps -eZ | grep -v "^\\w\\{1,\\}-[\\w\\{1,\\}_]\\{1,\\} " | grep -v "^system_u:system_r:initrc_t:s0 " | grep -v "^unconfined_u:unconfined_r:unconfined_t:s0 " | grep -v "^unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023 " | tr -s " " | cut -d " " -f2 | sort -u || echo "No unconfined daemons"', 'output': 'No unconfined daemons'}
         }
         
         for crit_id, data in updates.items():

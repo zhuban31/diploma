@@ -62,6 +62,10 @@ def parse_paste_file(filepath):
             
             # Определяем важность
             severity = "Medium"  # По умолчанию
+            if "Высокий" in details:
+                severity = "High"
+            elif "Низкий" in details:
+                severity = "Low"
             
             criteria.append({
                 "category_id": category_id,
@@ -74,6 +78,126 @@ def parse_paste_file(filepath):
                 "severity": severity,
                 "automated": automated
             })
+    
+    # Добавляем дополнительные критерии, которые могут не присутствовать в paste.txt
+    additional_criteria = [
+        {
+            "category_id": 6,
+            "id": 615,
+            "name": "6.15. Ensure IPv6 is disabled if not in use",
+            "description": "Description: If IPv6 is not required in your environment, it should be disabled",
+            "check_command": "sysctl net.ipv6.conf.all.disable_ipv6",
+            "expected_output": "1",
+            "remediation": "Add 'net.ipv6.conf.all.disable_ipv6 = 1' and 'net.ipv6.conf.default.disable_ipv6 = 1' to /etc/sysctl.conf",
+            "severity": "Medium",
+            "automated": True
+        },
+        {
+            "category_id": 5,
+            "id": 520,
+            "name": "5.2. Ensure HTTP server is not enabled unless required",
+            "description": "Description: HTTP servers should not run unless needed as they increase attack surface",
+            "check_command": "systemctl is-enabled apache2 2>/dev/null || systemctl is-enabled nginx 2>/dev/null || echo disabled",
+            "expected_output": "disabled",
+            "remediation": "Run 'systemctl disable apache2' or 'systemctl disable nginx' as appropriate",
+            "severity": "High",
+            "automated": True
+        },
+        {
+            "category_id": 4,
+            "id": 412,
+            "name": "4.2. Ensure ASLR is enabled",
+            "description": "Description: Address Space Layout Randomization (ASLR) makes it more difficult for an attacker to predict memory addresses",
+            "check_command": "sysctl kernel.randomize_va_space",
+            "expected_output": "2",
+            "remediation": "Set 'kernel.randomize_va_space = 2' in /etc/sysctl.conf and run 'sysctl -p'",
+            "severity": "High",
+            "automated": True
+        },
+        {
+            "category_id": 6,
+            "id": 630,
+            "name": "6.30. Ensure firewall is enabled",
+            "description": "Description: A properly configured firewall is essential for system security",
+            "check_command": "ufw status | grep -E 'Status:\\s*active' || iptables -L -n | grep -q 'REJECT\\|DROP' && echo 'Firewall active'",
+            "expected_output": "Firewall active",
+            "remediation": "Enable firewall with UFW ('ufw enable') or configure iptables rules",
+            "severity": "High",
+            "automated": True
+        },
+        {
+            "category_id": 8,
+            "id": 820,
+            "name": "8.2. Ensure all users have a valid password hash",
+            "description": "Description: All user accounts should have properly hashed passwords to prevent unauthorized access",
+            "check_command": "cat /etc/shadow | awk -F: '($2 == \"\" ) { print $1 \" has no password\" ; exit 1 }' || echo \"No empty passwords\"",
+            "expected_output": "No empty passwords",
+            "remediation": "Set passwords for accounts with empty password fields using 'passwd <username>'",
+            "severity": "High",
+            "automated": True
+        },
+        {
+            "category_id": 7,
+            "id": 730,
+            "name": "7.3. Ensure rsyslog or syslog-ng is installed",
+            "description": "Description: The rsyslog or syslog-ng software is required to reliably handle system logging",
+            "check_command": "dpkg -s rsyslog || dpkg -s syslog-ng || echo 'No syslog service installed'",
+            "expected_output": "Status: install ok installed",
+            "remediation": "Install rsyslog with 'apt install rsyslog'",
+            "severity": "High",
+            "automated": True
+        },
+        {
+            "category_id": 10,
+            "id": 1020,
+            "name": "10.2. Ensure permissions on /etc/shadow are configured",
+            "description": "Description: The /etc/shadow file contains encrypted passwords",
+            "check_command": "stat -c \"%a %u %g\" /etc/shadow",
+            "expected_output": "640 0 42",
+            "remediation": "Run 'chmod 640 /etc/shadow' and 'chown root:shadow /etc/shadow'",
+            "severity": "High",
+            "automated": True
+        },
+        {
+            "category_id": 5,
+            "id": 550,
+            "name": "5.5. Ensure SSH PermitRootLogin is disabled",
+            "description": "Description: SSH root login should be disabled to prevent direct unauthorized access",
+            "check_command": "grep -i \"^PermitRootLogin\" /etc/ssh/sshd_config | grep -i \"no\"",
+            "expected_output": "PermitRootLogin no",
+            "remediation": "Edit /etc/ssh/sshd_config and set 'PermitRootLogin no'",
+            "severity": "High",
+            "automated": True
+        },
+        {
+            "category_id": 5,
+            "id": 552,
+            "name": "5.5.2 Ensure SSH Protocol is set to 2",
+            "description": "Description: SSH protocol version 1 has known vulnerabilities and should not be used",
+            "check_command": "grep -i \"^Protocol\" /etc/ssh/sshd_config",
+            "expected_output": "Protocol 2",
+            "remediation": "Edit /etc/ssh/sshd_config and set 'Protocol 2'",
+            "severity": "High",
+            "automated": True
+        },
+        {
+            "category_id": 6,
+            "id": 620,
+            "name": "6.2. Ensure no unconfined daemons exist",
+            "description": "Description: AppArmor should confine all system daemons to enhance security",
+            "check_command": "ps -eZ | grep -v \"^\\w\\{1,\\}-[\\w\\{1,\\}_]\\{1,\\} \" | grep -v \"^system_u:system_r:initrc_t:s0
+            "expected_output": "No unconfined daemons",
+            "remediation": "Configure AppArmor profiles for any unconfined daemons",
+            "severity": "Medium",
+            "automated": True
+        }
+    ]
+    
+    # Добавляем дополнительные критерии в общий список
+    for criteria_item in additional_criteria:
+        # Проверяем, есть ли такой критерий уже в нашем списке
+        if not any(c["id"] == criteria_item["id"] for c in criteria):
+            criteria.append(criteria_item)
     
     return criteria
 
