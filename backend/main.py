@@ -13,6 +13,8 @@ import asyncio
 import logging
 import os
 from datetime import datetime, timedelta
+import winrm
+from windows_scanner import WindowsScanner
 
 # Инициализируем логгер
 logging.basicConfig(
@@ -117,12 +119,25 @@ async def run_scan(scan_request: schemas.ScanRequest, db: Session = Depends(get_
                                   connection_type=scan_request.connection_type)
     
     try:
-        # Получаем выбранные критерии
+        # Определяем правильные категории для типа соединения
+        allowed_categories = []
+        if scan_request.connection_type == "ssh":
+            # Linux категории (1-12)
+            allowed_categories = list(range(1, 13))
+        elif scan_request.connection_type == "winrm":
+            # Windows категории (13-18)
+            allowed_categories = list(range(13, 19))
+        
+        logger.info(f"Разрешенные категории для типа {scan_request.connection_type}: {allowed_categories}")
+        
+        # Получаем выбранные критерии с фильтрацией по разрешенным категориям
         selected_criteria = []
         for criterion_id in scan_request.criteria_ids:
             criterion = crud.get_criterion(db, criterion_id)
-            if criterion:
+            if criterion and criterion.category_id in allowed_categories:
                 selected_criteria.append(criterion)
+        
+        logger.info(f"Отфильтровано {len(selected_criteria)} критериев для сканирования")
         
         # Выполняем сканирование
         results = await perform_scan(scan_request.server_ip, 
@@ -261,16 +276,77 @@ def determine_status(criterion_id, output, expected):
     # Default case - if we're unsure, fail
     logger.info(f"No clear pass condition met for criterion {criterion_id}, defaulting to FAIL")
     return "Fail"
+
+def determine_windows_status(criterion_id, output, expected):
+    """
+    Determine the status of a Windows security check.
+    
+    Args:
+        criterion_id: ID of the criterion being checked
+        output: Command output from WinRM
+        expected: Expected output for a passing check
+        
+    Returns:
+        "Pass" or "Fail" status
+    """
+    # Windows-specific handling for certain registry checks
+    if expected == "True" and output.lower() == "true":
+        logger.info(f"Criterion {criterion_id} PASSED (Boolean true check)")
+        return "Pass"
+        
+    # For numeric registry values
+    if expected.isdigit() and output.strip() == expected:
+        logger.info(f"Criterion {criterion_id} PASSED (Numeric value match)")
+        return "Pass"
+        
+    # For string values with exact match
+    if output.strip() == expected:
+        logger.info(f"Criterion {criterion_id} PASSED (Exact string match)")
+        return "Pass"
+        
+    # For case-insensitive string values (common for registry)
+    if output.lower().strip() == expected.lower():
+        logger.info(f"Criterion {criterion_id} PASSED (Case-insensitive match)")
+        return "Pass"
+        
+    # For checks where expected value is contained in output
+    if expected in output:
+        logger.info(f"Criterion {criterion_id} PASSED (Substring match)")
+        return "Pass"
+        
+    # For checks with special keywords
+    if "disabled" in expected.lower() and "disabled" in output.lower():
+        logger.info(f"Criterion {criterion_id} PASSED (Disabled status match)")
+        return "Pass"
+        
+    if "enabled" in expected.lower() and "enabled" in output.lower():
+        logger.info(f"Criterion {criterion_id} PASSED (Enabled status match)")
+        return "Pass"
+        
+    # Default case - if no conditions are met, it's a fail
+    logger.info(f"Criterion {criterion_id} FAILED - Output doesn't match expected value")
+    return "Fail"
     
 async def perform_scan(server_ip, username, password, ssh_key, connection_type, criteria, use_sudo=False):
     """
-    Выполняет сканирование сервера на соответствие указанным критериям.
-    Возвращает список результатов сканирования.
+    Performs a security scan on a server, supporting both Linux (SSH) and Windows (WinRM) servers.
+    
+    Args:
+        server_ip: IP address of the server to scan
+        username: Username for authentication
+        password: Password for authentication
+        ssh_key: SSH key for Linux authentication (ignored for Windows)
+        connection_type: "ssh" for Linux or "winrm" for Windows
+        criteria: List of security criteria to check
+        use_sudo: Whether to use sudo for Linux commands (ignored for Windows)
+        
+    Returns:
+        List of scan results
     """
     results = []
     
     try:
-        # Подключаемся к серверу по SSH
+        # Linux server scanning via SSH
         if connection_type == "ssh":
             logger.info(f"Подключение к серверу {server_ip} по SSH с пользователем {username}")
             client = paramiko.SSHClient()
@@ -434,14 +510,28 @@ echo "=== КОНЕЦ ВЫПОЛНЕНИЯ ==="
             logger.info(f"Сканирование сервера {server_ip} завершено. Закрываем SSH-соединение.")
             client.close()
             
-        # Для WinRM (Windows Remote Management)
+        # Windows server scanning via WinRM
         elif connection_type == "winrm":
-            logger.info(f"Подключение к серверу {server_ip} по WinRM пока не реализовано")
-            # Здесь можно реализовать подключение к Windows-серверам через WinRM
-            pass
+            logger.info(f"Connecting to Windows server {server_ip} with WinRM")
+            
+            try:
+                # Create scanner instance
+                scanner = WindowsScanner(server_ip, username, password)
+                
+                # Perform the scan
+                results = scanner.perform_scan(criteria)
+                
+                # Close the connection
+                scanner.close()
+                
+                logger.info(f"Windows scan completed for server {server_ip}")
+                
+            except Exception as e:
+                logger.error(f"Error scanning Windows server: {str(e)}")
+                raise
         
     except Exception as e:
-        logger.error(f"Ошибка при сканировании: {str(e)}")
+        logger.error(f"Error during scan: {str(e)}")
         raise
     
     return results
