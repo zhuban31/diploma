@@ -1,0 +1,15 @@
+Windows Automatic Updates: Ensure automatic updates are enabled
+Windows Remote Desktop: Ensure RDP is properly secured
+Windows Firewall: Ensure Windows Firewall is enabled
+Windows User Accounts: Ensure Guest account is disabled
+Windows Security Policy: Ensure password complexity is enabled
+Windows Services: Ensure unnecessary services are disabled
+Windows Registry: Ensure secure registry settings
+Windows Event Logging: Ensure proper audit logging is configured
+Windows Updates: Ensure system is up-to-date
+Windows SMB: Ensure SMBv1 is disabled
+Windows Network Security: Ensure LLMNR is disabled
+Windows Authentication: Ensure LM hashes are disabled
+Windows PowerShell: Ensure PowerShell execution policy is restricted
+Windows User Rights: Ensure proper user rights assignments
+Windows UAC: Ensure User Account Control is enabled

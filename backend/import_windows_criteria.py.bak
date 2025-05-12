@@ -190,7 +190,7 @@ def import_windows_criteria_to_db():
             logger.info(f"Created Windows category: {windows_category['name']}")
         
         # Parse and import Windows criteria
-        windows_criteria = parse_windows_criteria("windows_criteria.txt")
+        windows_criteria = parse_windows_criteria("paste.txt")
         
         # Add each criterion to the database
         for criterion in windows_criteria:

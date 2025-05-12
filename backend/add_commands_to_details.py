@@ -1,6 +1,66 @@
+import logging
+from database import SessionLocal
+import models
 
-"""
-Windows server scanner using WinRM for remote management.
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("add-commands")
+
+db = SessionLocal()
+
+# Обновляем windows_scanner.py, чтобы включить команду в результаты
+try:
+    # Читаем текущий файл
+    with open("windows_scanner.py", "r") as f:
+        scanner_code = f.read()
+    
+    # Находим место в коде, где формируются результаты
+    if 'results.append({' in scanner_code and '"details": output,' in scanner_code:
+        # Заменяем строку с деталями на новую, включающую команду
+        new_code = scanner_code.replace(
+            '"details": output,',
+            '"details": f"Command: ```powershell\\n{criterion.check_command}\\n```\\n\\nOutput:\\n{output}",'
+        )
+        
+        # Сохраняем изменения
+        with open("windows_scanner.py", "w") as f:
+            f.write(new_code)
+        
+        logger.info("Успешно обновлен формат деталей в windows_scanner.py")
+    else:
+        logger.warning("Не удалось найти нужный фрагмент кода в windows_scanner.py")
+    
+    # Также обновим текущие результаты сканирования, если они есть
+    results = db.query(models.ScanResult).filter(
+        models.ScanResult.scan_id.in_(
+            db.query(models.Scan.id).filter(models.Scan.connection_type == "winrm")
+        )
+    ).all()
+    
+    updated_count = 0
+    for result in results:
+        # Получаем связанный критерий
+        criterion = db.query(models.Criterion).filter(models.Criterion.id == result.criterion_id).first()
+        if criterion and criterion.check_command:
+            # Если в результате еще нет информации о команде
+            if not result.details.startswith("Command:"):
+                # Добавляем команду к деталям
+                result.details = f"Command: ```powershell\n{criterion.check_command}\n```\n\nOutput:\n{result.details}"
+                updated_count += 1
+    
+    if updated_count > 0:
+        db.commit()
+        logger.info(f"Обновлено {updated_count} существующих результатов сканирования")
+    
+except Exception as e:
+    db.rollback()
+    logger.error(f"Ошибка при обновлении: {str(e)}")
+finally:
+    db.close()
+
+# Создаем альтернативный способ через обновление класса WindowsScanner
+with open("windows_scanner_with_commands.py", "w") as f:
+    f.write("""
+"""Windows server scanner using WinRM for remote management.
 Implements Windows-specific security checks for the security audit system.
 """
 
@@ -135,82 +195,6 @@ class WindowsScanner:
         logger.info(f"Criterion {criterion_id} FAILED - Output doesn't match expected value")
         return "Fail"
     
-    def add_explanation(self, criterion_name: str, output: str) -> str:
-        """Add explanation to numeric outputs"""
-        # Словарь с пояснениями к числовым значениям
-        explanations = {
-            "Windows Firewall": {
-                "1": "1 (Включен 1 профиль брандмауэра из 3)",
-                "2": "2 (Включены 2 профиля брандмауэра из 3)",
-                "3": "3 (Включены все 3 профиля брандмауэра)",
-                "0": "0 (Все профили брандмауэра отключены)"
-            },
-            "Windows UAC": {
-                "1": "1 (UAC включен)",
-                "0": "0 (UAC отключен)"
-            },
-            "Windows Authentication": {
-                "0": "0 (Анонимный доступ разрешен)",
-                "1": "1 (Базовое ограничение анонимного доступа)",
-                "2": "2 (Строгое ограничение анонимного доступа)"
-            },
-            "Windows Remote Desktop": {
-                "1": "1 (Безопасная авторизация RDP включена)",
-                "0": "0 (Безопасная авторизация RDP отключена)"
-            },
-            "Windows Security Policy": {
-                "0": "0 (UAC отключен)", 
-                "1": "1 (UAC в режиме без уведомлений)",
-                "2": "2 (UAC с уведомлениями)",
-                "3": "3 (UAC в режиме запроса учетных данных)",
-                "4": "4 (UAC в режиме запроса с затемнением рабочего стола)",
-                "5": "5 (UAC в максимально строгом режиме)"
-            },
-            "Windows Registry": {
-                "1": "1 (UAC включен в реестре)",
-                "0": "0 (UAC отключен в реестре)"
-            },
-            "Windows User Rights": {
-                "0": "0 (Группа не найдена)",
-                "1": "1 (1 пользователь в группе Администраторы)",
-                "2": "2 (2 пользователя в группе Администраторы)"
-            },
-            "Windows Basic Test": {
-                "0": "0 (Не установлено ни одного обновления)",
-                "1": "1 (Установлено 1 обновление)",
-                "2": "2 (Установлено 2 обновления)",
-                "3": "3 (Установлено 3 обновления)",
-                "4": "4 (Установлено 4 обновления)"
-            },
-            "Windows Automatic Updates": {
-                "0": "0 (Автоматическое обновление отключено)",
-                "1": "1 (Только уведомления о доступных обновлениях)",
-                "2": "2 (Автоматическая загрузка, ручная установка)",
-                "3": "3 (Автоматическая загрузка и установка)",
-                "4": "4 (Полностью автоматическое обновление)",
-                "5": "5 (Настройка по умолчанию)"
-            },
-            "Windows Services": {
-                "Running": "Running (Служба запущена)",
-                "Stopped": "Stopped (Служба остановлена)"
-            },
-            "Windows SMB": {
-                "True": "True (SMBv1 включен - небезопасно)",
-                "False": "False (SMBv1 отключен - безопасно)"
-            }
-        }
-        
-        # Проверяем, есть ли пояснения для этого критерия
-        if criterion_name in explanations:
-            # Ищем числовое значение в выводе
-            # Если вывод состоит только из одного числа или одного слова
-            output_stripped = output.strip()
-            if output_stripped in explanations[criterion_name]:
-                return explanations[criterion_name][output_stripped]
-        
-        # Если пояснения не найдены, возвращаем исходный вывод
-        return output
-    
     def perform_scan(self, criteria: List[Any]) -> List[Dict[str, Any]]:
         """
         Scan the Windows server against the provided criteria
@@ -262,7 +246,7 @@ class WindowsScanner:
                     results.append({
                         "criterion_id": criterion.id,
                         "status": "Error",
-                        "details": f"Error running check: {command_result['error']}",
+                        "details": f"Command: ```powershell\\n{criterion.check_command}\\n```\\n\\nError running check: {command_result['error']}",
                         "remediation": criterion.remediation
                     })
                     continue
@@ -270,7 +254,7 @@ class WindowsScanner:
                 # Get command output
                 output = command_result["output"]
                 if command_result["error"]:
-                    output += f"\nErrors: {command_result['error']}"
+                    output += f"\\nErrors: {command_result['error']}"
                 
                 # Handle empty output
                 if not output.strip():
@@ -283,11 +267,11 @@ class WindowsScanner:
                 # Log the result
                 logger.info(f"Criterion {criterion.id} check completed with status: {status}")
                 
-                # Add to results
+                # Add to results with the command included in details
                 results.append({
                     "criterion_id": criterion.id,
                     "status": status,
-                    "details": f"Command: ```powershell\n{criterion.check_command}\n```\n\nOutput:\n{self.add_explanation(criterion.name, output)}",
+                    "details": f"Command: ```powershell\\n{criterion.check_command}\\n```\\n\\nOutput:\\n{output}",
                     "remediation": criterion.remediation if status == "Fail" else ""
                 })
                 
@@ -298,7 +282,7 @@ class WindowsScanner:
                 results.append({
                     "criterion_id": criterion.id,
                     "status": "Error",
-                    "details": f"Exception during check: {str(e)}",
+                    "details": f"Command: ```powershell\\n{criterion.check_command}\\n```\\n\\nException during check: {str(e)}",
                     "remediation": criterion.remediation
                 })
         
@@ -310,3 +294,12 @@ class WindowsScanner:
         # WinRM doesn't require explicit closing like SSH
         logger.info("Closing WinRM connection")
         self.session = None
+""")
+
+logger.info("Создан файл windows_scanner_with_commands.py с обновленной логикой отображения команд")
+print("Выберите способ реализации:")
+print("1. Использовать обновление текущего файла windows_scanner.py")
+print("2. Заменить текущий файл на windows_scanner_with_commands.py")
+print("Выполните одну из команд:")
+print("docker-compose exec backend cp windows_scanner_with_commands.py windows_scanner.py")
+print("docker-compose restart backend")
