@@ -8,9 +8,8 @@ import { useAuth } from '../context/AuthContext';
 const Dashboard = () => {
   const [stats, setStats] = useState({
     totalScans: 0,
-    passedCriteria: 0,
-    failedCriteria: 0,
-    warningCriteria: 0
+    completedScans: 0,
+    failedScans: 0
   });
   const [recentScans, setRecentScans] = useState([]);
   const { user } = useAuth();
@@ -21,28 +20,19 @@ const Dashboard = () => {
       try {
         // Получение историии сканирований
         const scansResponse = await api.get('/scans/');
-        setRecentScans(scansResponse.data.slice(0, 5)); // Получаем только 5 последних
+        const allScans = scansResponse.data;
+        setRecentScans(allScans.slice(0, 5)); // Получаем только 5 последних
         
         // Рассчитываем статистику
-        if (scansResponse.data.length > 0) {
-          let passed = 0;
-          let failed = 0;
-          let warning = 0;
-          
-          for (const scan of scansResponse.data.slice(0, 5)) {
-            // Для каждого сканирования получаем результаты
-            const resultsResponse = await api.get(`/scans/${scan.id}`);
-            
-            passed += resultsResponse.data.results.filter(r => r.status === 'Pass').length;
-            failed += resultsResponse.data.results.filter(r => r.status === 'Fail').length;
-            warning += resultsResponse.data.results.filter(r => r.status === 'Warning').length;
-          }
+        if (allScans.length > 0) {
+          // Подсчитываем количество сканирований по статусам
+          const completedScans = allScans.filter(scan => scan.status === 'completed').length;
+          const failedScans = allScans.filter(scan => scan.status === 'failed').length;
           
           setStats({
-            totalScans: scansResponse.data.length,
-            passedCriteria: passed,
-            failedCriteria: failed,
-            warningCriteria: warning
+            totalScans: allScans.length,
+            completedScans: completedScans,
+            failedScans: failedScans
           });
         }
       } catch (error) {
@@ -103,28 +93,22 @@ const Dashboard = () => {
               Statistics
             </Typography>
             <Grid container spacing={2} sx={{ mt: 1 }}>
-              <Grid item xs={6} md={3}>
+              <Grid item xs={12} md={4}>
                 <Paper elevation={1} sx={{ p: 2, textAlign: 'center', bgcolor: 'primary.light', color: 'white' }}>
                   <Typography variant="h4">{stats.totalScans}</Typography>
                   <Typography variant="body2">Total Scans</Typography>
                 </Paper>
               </Grid>
-              <Grid item xs={6} md={3}>
+              <Grid item xs={12} md={4}>
                 <Paper elevation={1} sx={{ p: 2, textAlign: 'center', bgcolor: 'success.light', color: 'white' }}>
-                  <Typography variant="h4">{stats.passedCriteria}</Typography>
-                  <Typography variant="body2">Passed</Typography>
+                  <Typography variant="h4">{stats.completedScans}</Typography>
+                  <Typography variant="body2">Completed</Typography>
                 </Paper>
               </Grid>
-              <Grid item xs={6} md={3}>
+              <Grid item xs={12} md={4}>
                 <Paper elevation={1} sx={{ p: 2, textAlign: 'center', bgcolor: 'error.light', color: 'white' }}>
-                  <Typography variant="h4">{stats.failedCriteria}</Typography>
+                  <Typography variant="h4">{stats.failedScans}</Typography>
                   <Typography variant="body2">Failed</Typography>
-                </Paper>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <Paper elevation={1} sx={{ p: 2, textAlign: 'center', bgcolor: 'warning.light', color: 'white' }}>
-                  <Typography variant="h4">{stats.warningCriteria}</Typography>
-                  <Typography variant="body2">Warnings</Typography>
                 </Paper>
               </Grid>
             </Grid>

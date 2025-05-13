@@ -568,42 +568,47 @@ def export_scan_results(scan_id: int, format: str, db: Session = Depends(get_db)
     if not scan or scan.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Сканирование не найдено")
     
-    results = crud.get_scan_results(db, scan_id)
+    # Получаем результаты сканирования
+    scan_results = crud.get_scan_results(db, scan_id)
     
+    # Подготавливаем данные для экспорта
+    export_data = []
+    for result in scan_results:
+        criterion = crud.get_criterion(db, result.criterion_id)
+        export_data.append({
+            "id": result.id,
+            "criterion": criterion.name,
+            "status": result.status,
+            "severity": criterion.severity,
+            "details": result.details.replace("\n", " ").replace("\r", " ") if result.details else "",
+            "remediation": result.remediation.replace("\n", " ").replace("\r", " ") if result.remediation else ""
+        })
+    
+    # JSON экспорт
     if format.lower() == "json":
-        # Экспорт в JSON
-        export_data = []
-        for result in results:
-            criterion = crud.get_criterion(db, result.criterion_id)
-            export_data.append({
-                "id": result.id,
-                "criterion": criterion.name,
-                "status": result.status,
-                "severity": criterion.severity,
-                "details": result.details,
-                "remediation": result.remediation
-            })
-        
         return export_data
     
+    # CSV экспорт
     elif format.lower() == "csv":
-        # Экспорт в CSV
-        output = StringIO()
-        writer = csv.writer(output)
-        writer.writerow(["ID", "Criterion", "Status", "Severity", "Details", "Remediation"])
+        # Создаем CSV строку напрямую, без использования StringIO
+        csv_content = "ID,Criterion,Status,Severity,Details,Remediation\n"
         
-        for result in results:
-            criterion = crud.get_criterion(db, result.criterion_id)
-            writer.writerow([
-                result.id,
-                criterion.name,
-                result.status,
-                criterion.severity,
-                result.details,
-                result.remediation
-            ])
+        for item in export_data:
+            # Обрабатываем каждое поле, чтобы избежать проблем с запятыми и кавычками
+            safe_criterion = str(item["criterion"]).replace('"', '""').replace(',', ' ')
+            safe_details = str(item["details"]).replace('"', '""').replace(',', ' ')
+            safe_remediation = str(item["remediation"]).replace('"', '""').replace(',', ' ')
+            
+            csv_content += f'{item["id"]},"{safe_criterion}",{item["status"]},{item["severity"]},"{safe_details}","{safe_remediation}"\n'
         
-        return output.getvalue()
+        # Формируем ответ как текстовый файл
+        return Response(
+            content=csv_content, 
+            media_type="text/csv",
+            headers={
+                "Content-Disposition": f"attachment; filename=scan_{scan_id}_results.csv"
+            }
+        )
     
     else:
         raise HTTPException(status_code=400, detail="Unsupported format. Use 'json' or 'csv'.")

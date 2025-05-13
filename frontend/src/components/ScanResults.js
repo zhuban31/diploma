@@ -142,33 +142,57 @@ const ScanResults = () => {
     setPage(0);
   };
 
-  // Export results
+  // СОВЕРШЕННО НОВЫЙ ПОДХОД К ЭКСПОРТУ JSON/CSV
   const handleExport = async (format) => {
     try {
-      const response = await api.get(`/scans/${scanId}/export/${format}`);
-      let content, filename, type;
-      
       if (format === 'json') {
-        content = JSON.stringify(response.data, null, 2);
-        filename = `scan_${scanId}_results.json`;
-        type = 'application/json';
-      } else {
-        content = response.data;
-        filename = `scan_${scanId}_results.csv`;
-        type = 'text/csv';
+        // Экспорт JSON - используем существующие данные
+        const exportData = results.map(result => ({
+          id: result.id,
+          criterion: result.criterion.name,
+          status: result.status,
+          severity: result.criterion.severity,
+          details: result.details ? result.details.replace(/\n/g, ' ') : '',
+          remediation: result.remediation ? result.remediation.replace(/\n/g, ' ') : ''
+        }));
+        
+        const content = JSON.stringify(exportData, null, 2);
+        const blob = new Blob([content], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `scan_${scanId}_results.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+      } else if (format === 'csv') {
+        // Создаем простой CSV на клиенте из текущих данных
+        let csvContent = "ID,Criterion,Status,Severity,Details,Remediation\n";
+        
+        results.forEach(result => {
+          // Обрабатываем каждое поле, чтобы экранировать запятые и кавычки
+          const criterion = result.criterion.name.replace(/"/g, '""').replace(/,/g, ' ');
+          const details = result.details ? result.details.replace(/"/g, '""').replace(/,/g, ' ').replace(/\n/g, ' ') : '';
+          const remediation = result.remediation ? result.remediation.replace(/"/g, '""').replace(/,/g, ' ').replace(/\n/g, ' ') : '';
+          
+          csvContent += `${result.id},"${criterion}",${result.status},${result.criterion.severity},"${details}","${remediation}"\n`;
+        });
+        
+        // Создаем Blob для скачивания
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `scan_${scanId}_results.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       }
-      
-      const blob = new Blob([content], { type });
-      const url = URL.createObjectURL(blob);
-      
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
     } catch (err) {
       console.error(`Error exporting ${format}:`, err);
       setError(`Failed to export results as ${format.toUpperCase()}`);
