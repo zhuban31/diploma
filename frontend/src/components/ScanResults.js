@@ -143,61 +143,34 @@ const ScanResults = () => {
   };
 
   // СОВЕРШЕННО НОВЫЙ ПОДХОД К ЭКСПОРТУ JSON/CSV
-  const handleExport = async (format) => {
-    try {
-      if (format === 'json') {
-        // Экспорт JSON - используем существующие данные
-        const exportData = results.map(result => ({
-          id: result.id,
-          criterion: result.criterion.name,
-          status: result.status,
-          severity: result.criterion.severity,
-          details: result.details ? result.details.replace(/\n/g, ' ') : '',
-          remediation: result.remediation ? result.remediation.replace(/\n/g, ' ') : ''
-        }));
-        
-        const content = JSON.stringify(exportData, null, 2);
-        const blob = new Blob([content], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `scan_${scanId}_results.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-      } else if (format === 'csv') {
-        // Создаем простой CSV на клиенте из текущих данных
-        let csvContent = "ID,Criterion,Status,Severity,Details,Remediation\n";
-        
-        results.forEach(result => {
-          // Обрабатываем каждое поле, чтобы экранировать запятые и кавычки
-          const criterion = result.criterion.name.replace(/"/g, '""').replace(/,/g, ' ');
-          const details = result.details ? result.details.replace(/"/g, '""').replace(/,/g, ' ').replace(/\n/g, ' ') : '';
-          const remediation = result.remediation ? result.remediation.replace(/"/g, '""').replace(/,/g, ' ').replace(/\n/g, ' ') : '';
-          
-          csvContent += `${result.id},"${criterion}",${result.status},${result.criterion.severity},"${details}","${remediation}"\n`;
-        });
-        
-        // Создаем Blob для скачивания
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `scan_${scanId}_results.csv`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }
-    } catch (err) {
-      console.error(`Error exporting ${format}:`, err);
-      setError(`Failed to export results as ${format.toUpperCase()}`);
-    }
-  };
+  const handleExport = async () => {
+  try {
+    // Экспорт JSON - используем существующие данные
+    const exportData = results.map(result => ({
+      id: result.id,
+      criterion: result.criterion.name,
+      status: result.status,
+      severity: result.criterion.severity,
+      details: result.details ? result.details.replace(/\n/g, ' ') : '',
+      remediation: result.remediation ? result.remediation.replace(/\n/g, ' ') : ''
+    }));
+    
+    const content = JSON.stringify(exportData, null, 2);
+    const blob = new Blob([content], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `scan_${scanId}_results.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error('Error exporting JSON:', err);
+    setError('Failed to export results as JSON');
+  }
+};
 
   // Status indicator component
   const StatusIndicator = ({ status }) => {
@@ -340,13 +313,6 @@ const ScanResults = () => {
               sx={{ mr: 1 }}
             >
               Export JSON
-            </Button>
-            <Button 
-              variant="outlined" 
-              startIcon={<GetApp />} 
-              onClick={() => handleExport('csv')}
-            >
-              Export CSV
             </Button>
           </Box>
         </Paper>

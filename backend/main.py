@@ -562,11 +562,15 @@ def get_scan_details(scan_id: int, db: Session = Depends(get_db), current_user: 
 @app.get("/scans/{scan_id}/export/{format}")
 def export_scan_results(scan_id: int, format: str, db: Session = Depends(get_db), current_user: schemas.User = Depends(get_current_user)):
     """
-    Экспортирует результаты сканирования в выбранном формате (json или csv)
+    Экспортирует результаты сканирования в формате JSON
     """
     scan = crud.get_scan(db, scan_id)
     if not scan or scan.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Сканирование не найдено")
+    
+    # Проверяем, что запрошен JSON формат
+    if format.lower() != "json":
+        raise HTTPException(status_code=400, detail="Only JSON format is supported")
     
     # Получаем результаты сканирования
     scan_results = crud.get_scan_results(db, scan_id)
@@ -584,34 +588,7 @@ def export_scan_results(scan_id: int, format: str, db: Session = Depends(get_db)
             "remediation": result.remediation.replace("\n", " ").replace("\r", " ") if result.remediation else ""
         })
     
-    # JSON экспорт
-    if format.lower() == "json":
-        return export_data
-    
-    # CSV экспорт
-    elif format.lower() == "csv":
-        # Создаем CSV строку напрямую, без использования StringIO
-        csv_content = "ID,Criterion,Status,Severity,Details,Remediation\n"
-        
-        for item in export_data:
-            # Обрабатываем каждое поле, чтобы избежать проблем с запятыми и кавычками
-            safe_criterion = str(item["criterion"]).replace('"', '""').replace(',', ' ')
-            safe_details = str(item["details"]).replace('"', '""').replace(',', ' ')
-            safe_remediation = str(item["remediation"]).replace('"', '""').replace(',', ' ')
-            
-            csv_content += f'{item["id"]},"{safe_criterion}",{item["status"]},{item["severity"]},"{safe_details}","{safe_remediation}"\n'
-        
-        # Формируем ответ как текстовый файл
-        return Response(
-            content=csv_content, 
-            media_type="text/csv",
-            headers={
-                "Content-Disposition": f"attachment; filename=scan_{scan_id}_results.csv"
-            }
-        )
-    
-    else:
-        raise HTTPException(status_code=400, detail="Unsupported format. Use 'json' or 'csv'.")
+    return export_data
 
 # Запуск приложения
 if __name__ == "__main__":
