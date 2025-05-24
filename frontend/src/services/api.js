@@ -1,6 +1,28 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+// Динамическое определение API URL на основе текущего хоста
+const getApiUrl = () => {
+  // Если есть переменная окружения, используем её
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+  
+  // Иначе определяем динамически на основе текущего хоста
+  const protocol = window.location.protocol;
+  const hostname = window.location.hostname;
+  
+  // Если localhost, используем localhost:8000
+  if (hostname === 'localhost' || hostname === '127.0.0.1') {
+    return `${protocol}//localhost:8000`;
+  }
+  
+  // Для других хостов используем тот же хост с портом 8000
+  return `${protocol}//${hostname}:8000`;
+};
+
+const API_URL = getApiUrl();
+
+console.log('API URL:', API_URL); // Для отладки
 
 const api = axios.create({
   baseURL: API_URL,
