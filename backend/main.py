@@ -177,105 +177,186 @@ async def run_scan(scan_request: schemas.ScanRequest, db: Session = Depends(get_
 
 def determine_status(criterion_id, output, expected):
     """
-    Directly determine status by looking for explicit failure patterns in output.
-    
-    Args:
-        criterion_id: The ID of the criterion being checked
-        output: The actual output from the command
-        expected: The expected output for a passing check
-    
-    Returns:
-        "Pass" if the check passes, "Fail" if it fails
+    Correctly determines the status of a security check based on the output.
+    Fixed logic that properly handles all cases from the scan results.
     """
-    # First, log the check details for debugging
-    logger.info(f"STATUS CHECK: criterion={criterion_id}, output='{output.strip()}'")
+    logger.info(f"STATUS CHECK: criterion={criterion_id}, output='{output.strip()[:100]}...'")
     
-    # Explicit failure patterns - if any of these are in the output, the check fails
-    failure_patterns = [
-        "not set",
-        "Not properly configured", 
-        "not properly configured",
-        "not enabled", 
-        "Not enabled",
-        "incorrect",
-        "Incorrect",
-        "Permissions incorrect",
-        "not disabled",
-        "not installed",
-        "No appropriate warning",
-        "may be exposed",
-        "X11 forwarding not disabled",
-        "No outbound filtering",
-        "Remote logging not configured",
-        "SHA-512 not enabled",
-        "Core dumps may be exposed"
+    # Очищаем вывод от служебной информации
+    clean_output = output.strip()
+    
+    # Извлекаем только результат выполнения между маркерами
+    if "=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===" in clean_output:
+        parts = clean_output.split("=== РЕЗУЛЬТАТ ВЫПОЛНЕНИЯ ===")
+        if len(parts) > 1:
+            result_part = parts[1]
+            if "=== КОНЕЦ ВЫПОЛНЕНИЯ ===" in result_part:
+                result_part = result_part.split("=== КОНЕЦ ВЫПОЛНЕНИЯ ===")[0]
+            clean_output = result_part.strip()
+    
+    logger.info(f"Clean output for {criterion_id}: '{clean_output}'")
+    
+    # СПЕЦИАЛЬНЫЕ ПРАВИЛА ДЛЯ КАЖДОГО ТИПА ПРОВЕРКИ
+    
+    # 1. Проверки с четкими паттернами успеха
+    success_indicators = [
+        "Correctly configured",
+        "correctly configured",
+        "Permissions correct", 
+        "permissions correct",
+        "Firewall active",
+        "Logrotate configured",
+        "SHA-512 enabled",
+        "Warning exists",
+        "Core dumps protected",
+        "Outbound filtering active",
+        "X11 forwarding disabled",
+        "Umask properly configured",
+        "Remote logging configured",
+        "All transports secure",
+        "No upgrades needed",
+        "Authentication required"
     ]
     
-    # Command errors usually indicate a fail
-    if "Команда завершилась с ошибкой" in output and criterion_id != 1210 and criterion_id != 1220:
-        logger.info(f"Command error detected for criterion {criterion_id}, marking as FAIL")
-        return "Fail"
-    
-    # For output patterns that indicate failure
-    for pattern in failure_patterns:
-        if pattern in output:
-            logger.info(f"Failure pattern '{pattern}' found in output for criterion {criterion_id}, marking as FAIL")
-            return "Fail"
-    
-    # Special case for empty output on non-find commands
-    # Skip these specific find commands where empty output is good
-    if not output.strip() and "find /home -name" not in str(criterion_id) and criterion_id != 1210 and criterion_id != 1220:
-        logger.info(f"Empty output for non-find command {criterion_id}, marking as FAIL")
-        return "Fail"
-    
-    # IPv6 disabled check needs special handling
-    if criterion_id == 615 and "disable_ipv6 = 0" in output:
-        logger.info(f"IPv6 not disabled for criterion {criterion_id}, marking as FAIL")
-        return "Fail"
-    
-    # IP forwarding check
-    if criterion_id == 509 and "ip_forward = 1" in output:
-        logger.info(f"IP forwarding enabled for criterion {criterion_id}, marking as FAIL")
-        return "Fail"
-    
-    # Password max days check
-    if criterion_id == 810 and "99999" in output:
-        logger.info(f"Password max days too high for criterion {criterion_id}, marking as FAIL")
-        return "Fail"
-    
-    # Special case for find commands - empty output is a pass
-    if (criterion_id == 1210 or criterion_id == 1220 or "find /home -name" in output) and not output.strip():
-        logger.info(f"Empty output for find command {criterion_id}, marking as PASS")
-        return "Pass"
-    
-    # For "No X found" patterns
-    no_found_patterns = [
-        "No world-writable files found",
-        "No unowned files found",
-        "No empty passwords",
-        "No .netrc files found",
-        "No active wireless interfaces",
-        "No world-writable directories without sticky bit found",
-        "No unconfined daemons"
-    ]
-    
-    for pattern in no_found_patterns:
-        if pattern in output:
-            logger.info(f"'No found' pattern '{pattern}' found in output for criterion {criterion_id}, marking as PASS")
+    for indicator in success_indicators:
+        if indicator in clean_output:
+            logger.info(f"SUCCESS: Found '{indicator}' for criterion {criterion_id}")
             return "Pass"
     
-    # Special case for Prelink
-    if "Prelink not installed" in output:
-        logger.info(f"Prelink not installed for criterion {criterion_id}, marking as PASS")
+    # 2. Проверки "No X found" - это успех
+    no_found_success = [
+        "No empty passwords",
+        "No world-writable files found",
+        "No unowned files found", 
+        "No .netrc files found",
+        "No .forward files found",
+        "No world-writable directories without sticky bit found",
+        "No unconfined daemons",
+        "No active wireless interfaces"
+    ]
+    
+    for pattern in no_found_success:
+        if pattern in clean_output:
+            logger.info(f"SUCCESS: Found '{pattern}' for criterion {criterion_id}")
+            return "Pass"
+    
+    # 3. Проверки "not installed/disabled" - это тоже успех для некоторых случаев
+    not_installed_success = [
+        "Prelink not installed",
+        "disabled not-found disabled",  # HTTP server disabled
+        "not-found"
+    ]
+    
+    for pattern in not_installed_success:
+        if pattern in clean_output:
+            logger.info(f"SUCCESS: Found '{pattern}' for criterion {criterion_id}")
+            return "Pass"
+    
+    # 4. Числовые проверки
+    numeric_checks = {
+        # IP forwarding должен быть 0
+        509: lambda out: "net.ipv4.ip_forward = 0" in out,
+        # IPv6 должен быть 1 (отключен)
+        615: lambda out: "net.ipv6.conf.all.disable_ipv6 = 1" in out,
+        # ASLR должен быть 2
+        412: lambda out: "kernel.randomize_va_space = 2" in out,
+        # Правильные права доступа
+        1010: lambda out: "644 0 0" in out,
+        1020: lambda out: "640 0 42" in out,
+        # SSH checks
+        550: lambda out: "PermitRootLogin no" in out,
+        552: lambda out: "Protocol 2" in out,
+        # Audit active
+        710: lambda out: "active" in out.lower(),
+        # Services running  
+        720: lambda out: "enabled" in out.lower(),
+        730: lambda out: "Status: install ok installed" in out,
+        # Password max days not 99999
+        810: lambda out: "99999" not in out and "PASS_MAX_DAYS" in out
+    }
+    
+    if criterion_id in numeric_checks:
+        if numeric_checks[criterion_id](clean_output):
+            logger.info(f"SUCCESS: Numeric check passed for criterion {criterion_id}")
+            return "Pass"
+    
+    # 5. Пустой вывод = успех для find команд
+    empty_success_criteria = [1210, 1220, 1050, 1120, 1130]  # find команды
+    if criterion_id in empty_success_criteria and not clean_output:
+        logger.info(f"SUCCESS: Empty output for find command {criterion_id}")
         return "Pass"
     
-    # If the expected output is in the actual output, it passes
-    if expected and expected in output:
-        logger.info(f"Expected output '{expected}' found in output for criterion {criterion_id}, marking as PASS")
+    # 6. Проверяем ожидаемый результат
+    if expected and expected in clean_output:
+        logger.info(f"SUCCESS: Expected '{expected}' found for criterion {criterion_id}")
         return "Pass"
     
-    # Default case - if we're unsure, fail
-    logger.info(f"No clear pass condition met for criterion {criterion_id}, defaulting to FAIL")
+    # 7. СПЕЦИАЛЬНЫЕ ИСКЛЮЧЕНИЯ ДЛЯ КОНКРЕТНЫХ ПРОБЛЕМНЫХ КРИТЕРИЕВ
+    
+    # Критерий 5.7 (X11 forwarding) - "X11 forwarding not disabled" = FAIL
+    if criterion_id == 570 and "X11 forwarding not disabled" in clean_output:
+        logger.info(f"FAIL: X11 forwarding not disabled for criterion {criterion_id}")
+        return "Fail"
+    
+    # Критерий 6.4 (outbound filtering) - "No outbound filtering" = FAIL  
+    if criterion_id == 640 and "No outbound filtering" in clean_output:
+        logger.info(f"FAIL: No outbound filtering for criterion {criterion_id}")
+        return "Fail"
+        
+    # Критерий 4.4 (core dumps) - "Core dumps may be exposed" = FAIL
+    if criterion_id == 430 and "Core dumps may be exposed" in clean_output:
+        logger.info(f"FAIL: Core dumps exposed for criterion {criterion_id}")
+        return "Fail"
+    
+    # Критерий 7.5 (remote syslog) - "Remote logging not configured" = FAIL
+    if criterion_id == 750 and "Remote logging not configured" in clean_output:
+        logger.info(f"FAIL: Remote logging not configured for criterion {criterion_id}")
+        return "Fail"
+    
+    # Критерий 8.4 (SHA-512) - "SHA-512 not enabled" = FAIL
+    if criterion_id == 840 and "SHA-512 not enabled" in clean_output:
+        logger.info(f"FAIL: SHA-512 not enabled for criterion {criterion_id}")
+        return "Fail"
+    
+    # Критерий 9.2, 9.3 (warnings) - "No appropriate warning" = FAIL
+    if criterion_id in [920, 930] and "No appropriate warning" in clean_output:
+        logger.info(f"FAIL: No appropriate warning for criterion {criterion_id}")
+        return "Fail"
+    
+    # Критерий 12.4 (umask) - "Umask not configured" = FAIL
+    if criterion_id == 1240 and "Umask not configured" in clean_output:
+        logger.info(f"FAIL: Umask not configured for criterion {criterion_id}")
+        return "Fail"
+    
+    # 8. Критерии с "Not properly configured" = FAIL
+    not_configured_patterns = [
+        "Not properly configured",
+        "not properly configured", 
+        "not set",
+        "not enabled",
+        "not disabled",
+        "Permissions incorrect",
+        "No authentication required"
+    ]
+    
+    for pattern in not_configured_patterns:
+        if pattern in clean_output:
+            logger.info(f"FAIL: Found '{pattern}' for criterion {criterion_id}")
+            return "Fail"
+    
+    # 9. Ошибки команд = FAIL (кроме find команд)
+    if ("Команда завершилась с ошибкой" in clean_output or 
+        "command not found" in clean_output) and criterion_id not in empty_success_criteria:
+        logger.info(f"FAIL: Command error for criterion {criterion_id}")
+        return "Fail"
+    
+    # 10. Пустой вывод на обычных командах = FAIL
+    if not clean_output and criterion_id not in empty_success_criteria:
+        logger.info(f"FAIL: Empty output for criterion {criterion_id}")
+        return "Fail"
+    
+    # 11. По умолчанию = FAIL если ничего не подошло
+    logger.info(f"FAIL: No success condition met for criterion {criterion_id}")
     return "Fail"
 
 
