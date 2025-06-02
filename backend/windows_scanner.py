@@ -1,8 +1,5 @@
 
-"""
-Windows server scanner using WinRM for remote management.
-Implements Windows-specific security checks for the security audit system.
-"""
+
 
 import winrm
 import json
@@ -136,7 +133,7 @@ class WindowsScanner:
         return "Fail"
     
     def add_explanation(self, criterion_name: str, output: str) -> str:
-        """Add explanation to numeric outputs"""
+        
         # Словарь с пояснениями к числовым значениям
         explanations = {
             "Windows Firewall": {
